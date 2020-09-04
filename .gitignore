@@ -35,6 +35,7 @@ build/*
 contracts_project-prefix/*
 contracts_unit_tests-prefix/*
 .DS_Store
+atom-prefix/
 
 # Cmake
 CMakeLists.txt.user
