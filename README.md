@@ -68,9 +68,6 @@
 </details>
 
 <details>
-  <summary>Ubuntu Linux</summary>
-  <p>
-<details>
   <summary>Ubuntu 16.04/18.04</summary>
   <p>
     ```sh
