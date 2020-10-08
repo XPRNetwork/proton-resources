@@ -9,7 +9,7 @@
 <details>
   <summary>Mac OS X</summary>
   <p>
-    ```sh
+    ```
     brew tap eosio/eosio
     brew tap eosio/eosio.cdt
 
@@ -77,8 +77,6 @@
     sudo apt remove eosio
     sudo apt remove eosio.cdt
     ```
-  </p>
-</details>
   </p>
 </details>
 
