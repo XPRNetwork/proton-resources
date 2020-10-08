@@ -8,7 +8,6 @@
 ## Install
 <details>
   <summary>Mac OS X</summary>
-  <p>
 ```
 brew tap eosio/eosio
 brew tap eosio/eosio.cdt
@@ -16,7 +15,6 @@ brew tap eosio/eosio.cdt
 brew install eosio
 brew install eosio.cdt
 ```
-  </p>
 </details>
 
 <details>
