@@ -9,12 +9,13 @@
 <details>
   <summary>Mac OS X</summary>
   <p>
-  ```sh
-  brew tap eosio/eosio
-  brew tap eosio/eosio.cdt
+    ```sh
+    brew tap eosio/eosio
+    brew tap eosio/eosio.cdt
 
-  brew install eosio
-  brew install eosio.cdt
+    brew install eosio
+    brew install eosio.cdt
+    ```
   </p>
 </details>
 
@@ -46,11 +47,13 @@
 <details>
   <summary>RPM-based (CentOS, Amazon Linux, etc.)</summary>
   <p>
-    wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio-2.0.7-1.el7.x86_64.rpm
-    sudo yum install ./eosio-2.0.7-1.el7.x86_64.rpm
+    ```sh
+      wget https://github.com/eosio/eos/releases/download/v2.0.7/eosio-2.0.7-1.el7.x86_64.rpm
+      sudo yum install ./eosio-2.0.7-1.el7.x86_64.rpm
 
-    wget https://github.com/eosio/eosio.cdt/releases/download/v1.7.0/eosio.cdt-1.7.0-1.el7.x86_64.rpm
-    sudo yum install ./eosio.cdt-1.7.0-1.el7.x86_64.rpm
+      wget https://github.com/eosio/eosio.cdt/releases/download/v1.7.0/eosio.cdt-1.7.0-1.el7.x86_64.rpm
+      sudo yum install ./eosio.cdt-1.7.0-1.el7.x86_64.rpm
+    ```
   </p>
 </details>
 
@@ -60,10 +63,10 @@
 <details>
   <summary>Mac OS X</summary>
   <p>
-  ```sh
-  brew remove eosio
-  brew remove eosio.cdt
-  ```
+    ```sh
+    brew remove eosio
+    brew remove eosio.cdt
+    ```
   </p>
 </details>
 
