@@ -10,6 +10,7 @@
   <summary>Mac OS X</summary>
   <p>
     ```
+
     brew tap eosio/eosio
     brew tap eosio/eosio.cdt
 
