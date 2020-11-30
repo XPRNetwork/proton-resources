@@ -1,18 +1,15 @@
 <template>
   <div>
-    <Testimonials/>
-    <Faq/>
+    <BotOverview class="mb-20"/>
   </div>
 </template>
 
 <script>
-import Faq from '@/components/faq'
-import Testimonials from '@/components/testimonials'
+import BotOverview from '@/components/botOverview'
 
 export default {
   components: {
-    Faq,
-    Testimonials
+    BotOverview
   }
 }
 </script>

@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl font-extrabold text-gray-900">All-in-one platform</h2>
-        <p class="mt-4 text-lg text-gray-500">Ac euismod vel sit maecenas id pellentesque eu sed consectetur. Malesuada adipiscing sagittis vel nulla nec.</p>
+        <p class="mt-4 text-lg text-gray-500">Proton is the robust, all-in-one platform that is ideal for consumer grade blockchain apps.</p>
       </div>
 
       <dl class="mt-12 space-y-10 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-8">
@@ -32,36 +32,36 @@ export default {
     return {
       features: [
         {
-          title: 'Invite team members',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'Free account creation',
+          description: 'Consumers can create free accounts using the Proton iOS or Android wallets. Or, get an API key and build it into your app.'
         },
         {
-          title: 'Notifications',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'Free On-Chain KYC',
+          description: 'Proton has partnered with the best of breed KYC providers to offer optional free on-chain KYC.'
         },
         {
-          title: 'List View',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'Open Source SDKs',
+          description: 'Use our SDKs to integrate full wallet capability into your app. Easily build web apps with our web SDKs.'
         },
         {
-          title: 'Boards',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'Battle Tested',
+          description: 'Our bots have been tested at up to 1 million daily transactions with steady resource consumption.'
         },
         {
-          title: 'Reporting',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'World Class Governance',
+          description: 'Our independant overnance council pre-screens block producers, and checks for reputation before voting.'
         },
         {
-          title: 'Keyboards',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'Built for Usability',
+          description: 'Proton Apps feel just like web apps. No chrome plugins or desktop downloads. Intuitive. Simple. Fast.'
         },
         {
-          title: 'Calendars',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'Universal @names',
+          description: 'Every Proton accoutn name is a human readable, 4+ char string, like a twitter name. Blue checkmark if verified.'
         },
         {
-          title: 'Mobile',
-          description: 'Tempor tellus in aliquet eu et sit nulla tellus. Suspendisse est, molestie blandit quis ac. Lacus.'
+          title: 'Stablecoin ready',
+          description: 'Proton supports fast wrapped stablecoins: XUSDT, XPAX and XUSDC. All send in 2 seconds, with zero gas fees.'
         }
       ]
     }
