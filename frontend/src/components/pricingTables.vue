@@ -13,8 +13,8 @@
             <h2 class="text-lg leading-6 font-medium text-gray-900">{{ pricing.name }}</h2>
             <p class="mt-4 text-sm text-gray-500">{{ pricing.description }}</p>
             <p class="mt-8">
-              <span class="text-4xl font-extrabold text-gray-900">{{ pricing.price }} XPR </span>
-              <span class="text-base font-medium text-gray-500">/mo</span>
+              <span class="text-4xl font-extrabold text-gray-900">{{ pricing.price | formatNumber }} </span>
+              <span class="text-base font-medium text-gray-500">XPR / mo</span>
             </p>
             <a href="#" class="mt-8 block w-full bg-purple-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-purple-700">
               Buy {{ pricing.name }}
@@ -49,8 +49,8 @@ export default {
           description: 'All the basics for starting a new business',
           price: 100,
           included: [
-            'Potenti felis, in cras at at ligula nunc.',
-            'Orci neque eget pellentesque.'
+            '100 CPU and 100 NET system credits',
+            'Handles about 500 transactions per day'
           ]
         },
         {
@@ -58,9 +58,9 @@ export default {
           description: 'All the basics for starting a new business',
           price: 1000,
           included: [
-            'Potenti felis, in cras at at ligula nunc.',
-            'Orci neque eget pellentesque.',
-            'Faucibus volutpat magna.'
+            '1,000 CPU and 1,000 NET system credits',
+            '10 KB extra RAM per month',
+            'Handles about 5,000 transactions per day'
           ]
         },
         {
@@ -68,10 +68,10 @@ export default {
           description: 'All the basics for starting a new business',
           price: 10000,
           included: [
-            'Potenti felis, in cras at at ligula nunc.',
-            'Orci neque eget pellentesque.',
-            'Faucibus volutpat magna.',
-            'Id sed tellus in varius quisque.'
+            '10,000 CPU and 10,000 NET system credits',
+            '100 KB extra RAM per month',
+            'Handles about 50,000 transactions per day',
+            'Priority Support'
           ]
         },
         {
@@ -79,11 +79,11 @@ export default {
           description: 'All the basics for starting a new business',
           price: 100000,
           included: [
-            'Potenti felis, in cras at at ligula nunc.',
-            'Orci neque eget pellentesque.',
-            'Faucibus volutpat magna.',
-            'Id sed tellus in varius quisque.',
-            'Risus egestas faucibus.'
+            '100,000 CPU and 100,000 NET system credits',
+            '1 MB extra RAM per month',
+            'Handles about 500,000 transactions per day',
+            'Priority Support',
+            'Surge resource availability'
           ]
         }
       ]

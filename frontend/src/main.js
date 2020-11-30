@@ -6,6 +6,7 @@ import router from '@/router'
 import store from '@/store'
 
 import '@/assets/styles/index.css'
+import './filters'
 
 Vue.config.productionTip = false
 
