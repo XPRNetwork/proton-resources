@@ -8,6 +8,7 @@
 ## Install
 <details>
   <summary>Mac OS X</summary>
+
 ```
 brew tap eosio/eosio
 brew tap eosio/eosio.cdt
