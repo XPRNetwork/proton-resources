@@ -17,6 +17,7 @@
     "@protonprotocol/proton-web-sdk": "^2.6.2",
     "@protonprotocol/protonjs": "^21.0.37",
     "@tailwindcss/forms": "^0.2.1",
+    "numbro": "^2.3.2",
     "vue": "^2.5.2",
     "vue-click-outside": "^1.1.0",
     "vue-router": "^3.0.1",

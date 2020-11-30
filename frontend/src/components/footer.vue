@@ -3,23 +3,23 @@
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="sr-only">Footer</h2>
       <div class="border-t border-gray-700 pt-8 space-y-4 lg:space-y-0 lg:flex lg:items-center lg:justify-between xl:mt-0">
-          <div class="space-y-2">
+        <div class="space-y-2">
           <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-              Subscribe to our newsletter
+            Subscribe to our newsletter
           </h3>
           <p class="text-base text-gray-300">
-              The latest news, articles, and resources, sent to your inbox weekly.
+            The latest news, articles, and resources, sent to your inbox weekly.
           </p>
-          </div>
-          <form class="sm:flex sm:max-w-md">
+        </div>
+        <form class="sm:flex sm:max-w-md">
           <label for="emailAddress" class="sr-only">Email address</label>
           <input type="email" name="emailAddress" id="emailAddress" autocomplete="email" required class="min-w-0 w-full bg-white border border-transparent py-2 px-4 placeholder-gray-500 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white focus:border-white sm:max-w-xs rounded-md" placeholder="Enter your email">
           <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-              <button type="submit" class="w-full bg-purple-600 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-purple-500">
+            <button type="submit" class="w-full bg-purple-600 border border-transparent rounded-md py-2 px-4 flex items-center justify-center text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-purple-500">
               Subscribe
-              </button>
+            </button>
           </div>
-          </form>
+        </form>
       </div>
       <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
         <div class="flex space-x-6 md:order-2">
