@@ -1,0 +1,26 @@
+[build]
+  # This is where we will look for package.json/.nvmrc/etc.
+  base = "frontend"
+
+  # Directory (relative to root of your repo) that contains the deploy-ready build
+  publish = "dist"
+
+  # Default build command, allow getting private packages
+  command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*" # html files should be set this way.
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    cache-control = "public,max-age=60"
+
+[[headers]]
+  for = "/" # html files should be set this way.
+  [headers.values]
+    cache-control = "max-age=0,no-cache,no-store,must-revalidate"

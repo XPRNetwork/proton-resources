@@ -15,3 +15,6 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+# Local Netlify folder
+.netlify
