@@ -1,4 +1,4 @@
-# Atom Boilerplate for Proton Blockchain
+# Proton Resources
 
 ## Directory
 - atom: Smart Contracts
