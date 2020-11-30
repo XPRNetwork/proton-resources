@@ -47,7 +47,7 @@ export default {
         {
           name: 'Hobby',
           description: 'All the basics for starting a new business',
-          price: 10,
+          price: 100,
           included: [
             'Potenti felis, in cras at at ligula nunc.',
             'Orci neque eget pellentesque.'
@@ -56,7 +56,7 @@ export default {
         {
           name: 'Freelancer',
           description: 'All the basics for starting a new business',
-          price: 100,
+          price: 1000,
           included: [
             'Potenti felis, in cras at at ligula nunc.',
             'Orci neque eget pellentesque.',
@@ -66,7 +66,7 @@ export default {
         {
           name: 'Startup',
           description: 'All the basics for starting a new business',
-          price: 1000,
+          price: 10000,
           included: [
             'Potenti felis, in cras at at ligula nunc.',
             'Orci neque eget pellentesque.',
@@ -77,7 +77,7 @@ export default {
         {
           name: 'Enterprise',
           description: 'All the basics for starting a new business',
-          price: 10000,
+          price: 100000,
           included: [
             'Potenti felis, in cras at at ligula nunc.',
             'Orci neque eget pellentesque.',
