@@ -49,7 +49,7 @@ export default {
           description: 'All the basics for starting a new business',
           price: 100,
           included: [
-            '100 CPU and 100 NET system credits',
+            '100 CPU and 25 NET system credits',
             'Handles about 500 transactions per day'
           ]
         },
@@ -58,7 +58,7 @@ export default {
           description: 'All the basics for starting a new business',
           price: 1000,
           included: [
-            '1,000 CPU and 1,000 NET system credits',
+            '1,000 CPU and 250 NET system credits',
             '10 KB extra RAM per month',
             'Handles about 5,000 transactions per day'
           ]
@@ -68,7 +68,7 @@ export default {
           description: 'All the basics for starting a new business',
           price: 10000,
           included: [
-            '10,000 CPU and 10,000 NET system credits',
+            '10,000 CPU and 2,500 NET system credits',
             '100 KB extra RAM per month',
             'Handles about 50,000 transactions per day',
             'Priority Support'
@@ -79,7 +79,7 @@ export default {
           description: 'All the basics for starting a new business',
           price: 100000,
           included: [
-            '100,000 CPU and 100,000 NET system credits',
+            '100,000 CPU and 25,000 NET system credits',
             '1 MB extra RAM per month',
             'Handles about 500,000 transactions per day',
             'Priority Support',

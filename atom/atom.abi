@@ -8,41 +8,88 @@
             "base": "",
             "fields": [
                 {
-                    "name": "index",
-                    "type": "uint64"
-                },
-                {
-                    "name": "balance",
-                    "type": "uint64"
-                },
-                {
                     "name": "account",
                     "type": "name"
+                },
+                {
+                    "name": "balances",
+                    "type": "pair_name_asset[]"
                 }
             ]
         },
         {
-            "name": "hi",
+            "name": "Plan",
             "base": "",
             "fields": [
                 {
+                    "name": "index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "price",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "price_days",
+                    "type": "uint64"
+                },
+                {
+                    "name": "resource_credits",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "pair_name_asset",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "withdraw",
+            "base": "",
+            "fields": [
+                {
+                    "name": "contract",
+                    "type": "name"
+                },
+                {
                     "name": "account",
                     "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
                 }
             ]
         }
     ],
     "actions": [
         {
-            "name": "hi",
-            "type": "hi",
-            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: HI\nsummary: 'Hi'\nicon:\n---"
+            "name": "withdraw",
+            "type": "withdraw",
+            "ricardian_contract": ""
         }
     ],
     "tables": [
         {
             "name": "account",
             "type": "Account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "plan",
+            "type": "Plan",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
