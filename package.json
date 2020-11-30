@@ -1,0 +1,22 @@
+{
+  "name": "proton-resources",
+  "version": "1.0.0",
+  "description": "## Directory - atom: Smart Contracts - js_tests: JS Tests - c++_tests: C++ Tests (optional, have to manually build EOSIO)",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd frontend && npm run build && cd ..",
+    "deployprod": "npm run build && netlify deploy --prod",
+    "deploy": "npm run build && netlify deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProtonProtocol/proton-resources.git"
+  },
+  "author": "Syed Jafri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProtonProtocol/proton-resources/issues"
+  },
+  "homepage": "https://github.com/ProtonProtocol/proton-resources#readme"
+}
