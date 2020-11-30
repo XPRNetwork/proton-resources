@@ -45,7 +45,7 @@ export default {
     return {
       pricingStrategies: [
         {
-          name: 'Hobby',
+          name: 'Basic',
           description: 'All the basics for starting a new business',
           price: 100,
           included: [
@@ -54,7 +54,7 @@ export default {
           ]
         },
         {
-          name: 'Freelancer',
+          name: 'Plus',
           description: 'All the basics for starting a new business',
           price: 1000,
           included: [
@@ -64,7 +64,7 @@ export default {
           ]
         },
         {
-          name: 'Startup',
+          name: 'Pro',
           description: 'All the basics for starting a new business',
           price: 10000,
           included: [
