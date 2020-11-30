@@ -1,0 +1,69 @@
+{
+  "name": "proton-test-app",
+  "version": "1.0.2",
+  "description": "A Vue.js project",
+  "author": "jafri <syed.jafri2@ucalgary.ca>",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "start": "npm run dev",
+    "unit": "jest --config test/unit/jest.conf.js --coverage",
+    "e2e": "node test/e2e/runner.js",
+    "test": "npm run unit && npm run e2e",
+    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
+    "build": "node build/build.js"
+  },
+  "dependencies": {
+    "@protonprotocol/proton-web-sdk": "^2.6.2",
+    "@protonprotocol/protonjs": "^21.0.37",
+    "@tailwindcss/forms": "^0.2.1",
+    "vue": "^2.5.2",
+    "vue-click-outside": "^1.1.0",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/traverse": "^7.1.6",
+    "@babel/types": "^7.2.0",
+    "@vue/cli-plugin-babel": "^4.1.2",
+    "@vue/cli-plugin-eslint": "^4.1.2",
+    "@vue/cli-plugin-pwa": "^4.1.2",
+    "@vue/cli-plugin-unit-jest": "^4.1.2",
+    "@vue/cli-service": "^4.1.2",
+    "@vue/compiler-sfc": "^3.0.2",
+    "@vue/eslint-config-prettier": "^5.1.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "autoprefixer": "^9.8.6",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.8.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "cache-loader": "3.0.1",
+    "copy-webpack-plugin": "^5.0.3",
+    "core-js": "^3.6.1",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^7.1.0",
+    "postcss": "^7.0.35",
+    "preload-webpack-plugin": "^2.3.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.0.0",
+    "webpack-bundle-analyzer": "^3.3.2"
+  },
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
