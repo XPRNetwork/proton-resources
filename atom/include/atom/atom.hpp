@@ -11,6 +11,7 @@
 #include <eosio/transaction.hpp>
 
 // Local
+#include "tables.hpp"
 #include "constants.hpp"
 
 namespace proton {
@@ -20,39 +21,27 @@ namespace proton {
 
     atom( eosio::name receiver, eosio::name code, eosio::datastream<const char*> ds )
       : contract(receiver, code, ds),
-        _accounts(receiver, receiver.value) {}
+        _accounts(receiver, receiver.value),
+        _plans(receiver, receiver.value) {}
 
-    ACTION hi ( const eosio::name& account );
+    ACTION withdraw (const eosio::name& contract, const eosio::name& account, const eosio::asset& quantity);
 
-    // This functions will be called when the contract is notified of
-    // incoming or outgoing transfer actions from the eosio.token contract
-    [[eosio::on_notify("eosio.token::transfer")]]
+    // This function will be called when the contract is notified of incoming or outgoing transfer actions from any contract
+    [[eosio::on_notify("*::transfer")]]
     void transfer( const eosio::name& from,
                    const eosio::name& to,
                    const eosio::asset& quantity,
                    const std::string& memo );
 
     // Action wrappers
-    using hi_action = eosio::action_wrapper<"hi"_n, &atom::hi>;
+    using withdraw_action = eosio::action_wrapper<"withdraw"_n, &atom::withdraw>;
 
-    // Define table
-    TABLE Account {
-      uint64_t index;
-      uint64_t balance;
-      eosio::name account;
-
-      uint64_t primary_key() const { return index; };
-      uint64_t by_balance() const { return balance; };
-    };
-
-    typedef eosio::multi_index<"account"_n, Account,
-      eosio::indexed_by<eosio::name("bybalance"), eosio::const_mem_fun<Account, uint64_t, &Account::by_balance>>
-    > account_table;
-
-    // Initialize table
+    // Initialize tables from tables.hpp
     account_table _accounts;
+    plan_table _plans;
 
   private:
+    void deposit (const eosio::name& contract, const eosio::name& account, const eosio::asset& quantity);
     // Private functions (not in ABI)
   };
 }
