@@ -17,44 +17,17 @@ namespace proton {
     bool valid_to = to == get_self();
     eosio::check(valid_symbol && valid_to, "Invalid Deposit");
 
-    // Get token contract
+    // Deposit
     eosio::name token_contract = get_first_receiver();
-
-    // Do something
-    deposit(token_contract, from, quantity);
+    auto balance_to_add = eosio::extended_asset(quantity, token_contract);
+    add_balance(from, balance_to_add);
   }
 
-  void atom::deposit (const eosio::name& contract, const eosio::name& account, const eosio::asset& quantity) {
-    auto acc_itr = _accounts.find(account.value);
-    
-    if (acc_itr == _accounts.end()) {
-      _accounts.emplace(get_self(), [&](auto& a) {
-        a.account = account;
-        // a.balances = { }
-      });
-    } else {
-      _accounts.modify(acc_itr, get_self(), [&](auto& a) {
-        a.balances[contract] += quantity;
-      });
-    }
-  }
-
-  void atom::withdraw (const eosio::name& contract, const eosio::name& account, const eosio::asset& quantity) {
+  void atom::withdraw (const eosio::name& account, const eosio::extended_asset& balance) {
     require_auth(account);
+    substract_balance(account, balance);
 
-    auto acc_itr = _accounts.require_find(account.value, "account does not exist");
-    
-    _accounts.modify(acc_itr, get_self(), [&](auto& a) {
-      a.balances[contract] -= quantity;
-
-      if (a.balances[contract].amount == 0) {
-        a.balances.erase(contract);
-      }
-    });
-
-    // Remove object if no balances
-    if (acc_itr->balances.size() == 0) {
-      _accounts.erase(acc_itr);
-    }
+    transfer_action t_action( balance.contract, {get_self(), "active"_n} );
+    t_action.send(get_self(), account, balance.quantity, "");
   }
 }

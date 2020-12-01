@@ -24,10 +24,10 @@ export default {
     return {
       testimonials: [
         { src: '/img/metal.png', alt: 'Metal' },
-        { src: '/img/audius.png', alt: 'Metal' },
-        { src: '/img/moeda.png', alt: 'Metal' },
-        { src: '/img/ubitquity.png', alt: 'Metal' },
-        { src: '/img/equa.png', alt: 'Metal' }
+        { src: '/img/audius.png', alt: 'Audius' },
+        { src: '/img/moeda.png', alt: 'Moeda' },
+        { src: '/img/ubitquity.png', alt: 'Ubitquity' },
+        { src: '/img/equa.png', alt: 'Equa' }
       ]
     }
   }
