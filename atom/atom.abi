@@ -13,13 +13,13 @@
                 },
                 {
                     "name": "balances",
-                    "type": "pair_name_asset[]"
+                    "type": "pair_extended_symbol_asset[]"
                 }
             ]
         },
         {
             "name": "Plan",
-            "base": "",
+            "base": "ResourceBase",
             "fields": [
                 {
                     "name": "index",
@@ -30,22 +30,78 @@
                     "type": "extended_asset"
                 },
                 {
-                    "name": "price_days",
+                    "name": "days",
                     "type": "uint64"
-                },
-                {
-                    "name": "resource_credits",
-                    "type": "asset"
                 }
             ]
         },
         {
-            "name": "pair_name_asset",
+            "name": "ResourceBase",
+            "base": "",
+            "fields": [
+                {
+                    "name": "cpu_credits",
+                    "type": "asset"
+                },
+                {
+                    "name": "net_credits",
+                    "type": "asset"
+                },
+                {
+                    "name": "ram_bytes",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "Term",
+            "base": "ResourceBase",
+            "fields": [
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "end_time",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "buyplan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "plan_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "extended_symbol",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sym",
+                    "type": "symbol"
+                },
+                {
+                    "name": "contract",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "pair_extended_symbol_asset",
             "base": "",
             "fields": [
                 {
                     "name": "key",
-                    "type": "name"
+                    "type": "extended_symbol"
                 },
                 {
                     "name": "value",
@@ -54,25 +110,56 @@
             ]
         },
         {
-            "name": "withdraw",
+            "name": "removeplan",
             "base": "",
             "fields": [
                 {
-                    "name": "contract",
-                    "type": "name"
-                },
+                    "name": "plan_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "setplan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "plan",
+                    "type": "Plan"
+                }
+            ]
+        },
+        {
+            "name": "withdraw",
+            "base": "",
+            "fields": [
                 {
                     "name": "account",
                     "type": "name"
                 },
                 {
-                    "name": "quantity",
-                    "type": "asset"
+                    "name": "balance",
+                    "type": "extended_asset"
                 }
             ]
         }
     ],
     "actions": [
+        {
+            "name": "buyplan",
+            "type": "buyplan",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "removeplan",
+            "type": "removeplan",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setplan",
+            "type": "setplan",
+            "ricardian_contract": ""
+        },
         {
             "name": "withdraw",
             "type": "withdraw",
@@ -90,6 +177,13 @@
         {
             "name": "plan",
             "type": "Plan",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "term",
+            "type": "Term",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

@@ -11,5 +11,7 @@
 
 namespace proton
 {
-  static constexpr auto WORD_SIZE = 32u;
+  static constexpr auto SECONDS_IN_MINUTE = 60;
+  static constexpr auto SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
+  static constexpr auto SECONDS_IN_DAY = SECONDS_IN_HOUR * 24;
 } // namespace proton
