@@ -31,10 +31,7 @@ export const login = async ({ restoreSession } = { restoreSession: false }) => {
 
 export const transact = async (actions, broadcast) => {
   if (!wallet.session) {
-    await login()
-    if (!wallet.session) {
-      throw new Error('Could not find user')
-    }
+    throw new Error('Could not find user')
   }
 
   return wallet.session.transact({

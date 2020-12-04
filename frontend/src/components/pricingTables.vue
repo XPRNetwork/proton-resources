@@ -146,6 +146,7 @@ export default {
 
   methods: {
     ...mapActions({
+      login: 'user/login',
       transact: 'user/transact'
     }),
 
@@ -192,6 +193,14 @@ export default {
     },
 
     async buyPlan (planQuantity, plan) {
+      if (!this.actor) {
+        await this.login()
+        if (!this.actor) {
+          alert('Could not find user')
+          return
+        }
+      }
+
       const actions = [
         {
           account: TOKEN_CONTRACT,
