@@ -118,6 +118,9 @@ export default {
       handler: function () {
         if (this.actor) {
           this.getTermForUser(this.actor)
+        } else {
+          this.selectedPlan = undefined
+          this.userTerm = undefined
         }
       }
     }
@@ -197,6 +200,9 @@ export default {
         await this.login()
         if (!this.actor) {
           alert('Could not find user')
+          return
+        } else {
+          setTimeout(() => this.buyPlan(planQuantity, plan), 1000)
           return
         }
       }
