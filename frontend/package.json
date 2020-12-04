@@ -6,9 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "VUE_APP_CHAIN=proton-test vue-cli-service serve",
-    "build": "VUE_APP_CHAIN=proton-test vue-cli-service build",
     "devprod": "VUE_APP_CHAIN=proton vue-cli-service serve",
-    "buildprod": "VUE_APP_CHAIN=proton vue-cli-service build",
+    "build": "vue-cli-service build",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
