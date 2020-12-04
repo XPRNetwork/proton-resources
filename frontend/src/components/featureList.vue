@@ -32,7 +32,7 @@ export default {
     return {
       features: [
         {
-          title: 'Free account creation',
+          title: 'Free Account Creation',
           description: 'Consumers can create free accounts using the Proton iOS or Android wallets. Or, get an API key and build it into your app.'
         },
         {
@@ -49,7 +49,7 @@ export default {
         },
         {
           title: 'World Class Governance',
-          description: 'Our independant overnance council pre-screens block producers, and checks for reputation before voting.'
+          description: 'Our independant governance council pre-screens block producers, and checks for reputation before voting.'
         },
         {
           title: 'Built for Usability',
@@ -57,11 +57,11 @@ export default {
         },
         {
           title: 'Universal @names',
-          description: 'Every Proton accoutn name is a human readable, 4+ char string, like a twitter name. Blue checkmark if verified.'
+          description: 'Every Proton account name is a human readable, 4+ char string, like a twitter name. Blue checkmark if verified.'
         },
         {
-          title: 'Stablecoin ready',
-          description: 'Proton supports fast wrapped stablecoins: XUSDT, XPAX and XUSDC. All send in 2 seconds, with zero gas fees.'
+          title: 'Stablecoin Ready',
+          description: 'Proton supports fast wrapped stablecoins: XUSDT, XPAX and XUSDC. All sent in 2 seconds, with zero gas fees.'
         }
       ]
     }

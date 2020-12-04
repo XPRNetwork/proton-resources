@@ -42,7 +42,7 @@ cleosp push action resources addplan '{
 }' -p resources;
 
 
-cleosp push action resources addplan '{
+cleospt push action resources updateplan '{
         "plan": {
                 "index": 2,
                 "plan_days": 31,
@@ -55,7 +55,7 @@ cleosp push action resources addplan '{
                         "quantity": "10000.0000 XPR"
                 },
                 "name": "Pro",
-                "description": "Enough resources for all but the most high volume apps",
+                "description": "Enough resources for all but the highest volume apps",
                 "included": [
                         "10,000 CPU and 2,500 NET system credits",
                         "100 KB extra RAM per month",
