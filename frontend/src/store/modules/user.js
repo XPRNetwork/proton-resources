@@ -31,28 +31,20 @@ const actions = {
     commit('resetUser')
   },
 
-  async transact ({ state, commit }, { actions, broadcast = true }) {
+  async transact ({ state }, { actions, broadcast = true }) {
     actions = actions.map(action => {
       action.authorization = [{ actor: state.actor, permission: state.permission }]
       return action
     })
     try {
       const success = await userApi.transact(actions, broadcast)
-      if (broadcast) {
-        commit('wallet/SET_SUCCESS', success, { root: true })
-      } else {
-        return success
-      }
+      return success
     } catch (e) {
       const fieldError = e.json && e.json.fields && e.json.fields.length && e.json.fields[0].error
       console.log(e)
       console.log(fieldError || e.message || e.toString() || e)
 
-      if (broadcast) {
-        commit('wallet/SET_ERROR', fieldError, { root: true })
-      } else {
-        return e
-      }
+      return e
     }
   }
 }

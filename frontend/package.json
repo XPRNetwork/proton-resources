@@ -1,22 +1,25 @@
 {
-  "name": "proton-test-app",
+  "name": "proton-resources",
   "version": "1.0.2",
-  "description": "A Vue.js project",
+  "description": "Proton Resources",
   "author": "jafri <syed.jafri2@ucalgary.ca>",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "dev": "VUE_APP_CHAIN=proton-test vue-cli-service serve",
+    "build": "VUE_APP_CHAIN=proton-test vue-cli-service build",
+    "devprod": "VUE_APP_CHAIN=proton vue-cli-service serve",
+    "buildprod": "VUE_APP_CHAIN=proton vue-cli-service build",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "vue-cli-service build"
+    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs"
   },
   "dependencies": {
-    "@protonprotocol/proton-web-sdk": "^2.6.2",
+    "@protonprotocol/proton-web-sdk": "^2.6.3",
     "@protonprotocol/protonjs": "^21.0.37",
     "@tailwindcss/forms": "^0.2.1",
+    "dayjs": "^1.9.6",
     "numbro": "^2.3.2",
     "vue": "^2.5.2",
     "vue-click-outside": "^1.1.0",
