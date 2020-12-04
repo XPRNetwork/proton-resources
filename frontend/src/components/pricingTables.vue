@@ -2,7 +2,7 @@
   <div class="bg-gradient-to-b from-white to-gray-50 pb-20">
     <div class="max-w-7xl mx-auto pt-24 px-4 sm:px-6 lg:px-8">
       <div class="sm:flex sm:flex-col sm:align-center">
-        <h1 class="text-5xl font-extrabold text-gray-900 sm:text-center">Resource Plans</h1>
+        <h1 class="text-5xl font-extrabold text-gray-900 sm:text-center"><span v-if="CHAIN === 'proton-test'">Testnet</span> Resource Plans</h1>
         <p class="mt-5 text-xl text-gray-500 sm:text-center">
           Start building for free, then add a resource plan to go live. Each plan unlocks additional features.
         </p>
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { ATOM_CONTRACT, TOKEN_CONTRACT } from '@/constants'
+import { ATOM_CONTRACT, TOKEN_CONTRACT, CHAIN } from '@/constants'
 import { mapActions, mapState } from 'vuex'
 import BuyPlanModal from '@/components/buyPlanModal'
 import SkeletonPricingTable from '@/components/skeletonPricingTable'
@@ -104,6 +104,7 @@ export default {
 
   data () {
     return {
+      CHAIN,
       selectedPlan: undefined,
       userTerm: undefined,
       activeHover: false,
