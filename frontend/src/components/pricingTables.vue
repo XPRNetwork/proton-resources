@@ -202,7 +202,7 @@ export default {
           alert('Could not find user')
           return
         } else {
-          setTimeout(() => this.buyPlan(planQuantity, plan), 1000)
+          setTimeout(() => this.buyPlan(planQuantity, plan), 2000)
           return
         }
       }
