@@ -19,24 +19,36 @@
         },
         {
             "name": "Plan",
-            "base": "ResourceBase",
+            "base": "PlanBase",
             "fields": [
                 {
                     "name": "index",
                     "type": "uint64"
                 },
                 {
-                    "name": "price",
-                    "type": "extended_asset"
+                    "name": "plan_days",
+                    "type": "uint64"
                 },
                 {
-                    "name": "days",
-                    "type": "uint64"
+                    "name": "max_quantity",
+                    "type": "uint32"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "included",
+                    "type": "string[]"
                 }
             ]
         },
         {
-            "name": "ResourceBase",
+            "name": "PlanBase",
             "base": "",
             "fields": [
                 {
@@ -49,21 +61,39 @@
                 },
                 {
                     "name": "ram_bytes",
-                    "type": "uint64"
+                    "type": "uint32"
+                },
+                {
+                    "name": "price",
+                    "type": "extended_asset"
                 }
             ]
         },
         {
             "name": "Term",
-            "base": "ResourceBase",
+            "base": "PlanBase",
             "fields": [
                 {
                     "name": "account",
                     "type": "name"
                 },
                 {
-                    "name": "end_time",
+                    "name": "term_days",
                     "type": "uint64"
+                },
+                {
+                    "name": "start_time",
+                    "type": "time_point"
+                }
+            ]
+        },
+        {
+            "name": "addplan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "plan",
+                    "type": "Plan"
                 }
             ]
         },
@@ -76,10 +106,19 @@
                     "type": "name"
                 },
                 {
-                    "name": "plan_id",
+                    "name": "plan_index",
                     "type": "uint64"
+                },
+                {
+                    "name": "plan_quantity",
+                    "type": "uint32"
                 }
             ]
+        },
+        {
+            "name": "cleanup",
+            "base": "",
+            "fields": []
         },
         {
             "name": "extended_symbol",
@@ -110,17 +149,41 @@
             ]
         },
         {
-            "name": "removeplan",
+            "name": "planreceipt",
             "base": "",
             "fields": [
                 {
-                    "name": "plan_id",
+                    "name": "plan_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "term",
+                    "type": "Term"
+                }
+            ]
+        },
+        {
+            "name": "process",
+            "base": "",
+            "fields": [
+                {
+                    "name": "max",
                     "type": "uint64"
                 }
             ]
         },
         {
-            "name": "setplan",
+            "name": "removeplan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "plan_index",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "updateplan",
             "base": "",
             "fields": [
                 {
@@ -146,8 +209,28 @@
     ],
     "actions": [
         {
+            "name": "addplan",
+            "type": "addplan",
+            "ricardian_contract": ""
+        },
+        {
             "name": "buyplan",
             "type": "buyplan",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "cleanup",
+            "type": "cleanup",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "planreceipt",
+            "type": "planreceipt",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "process",
+            "type": "process",
             "ricardian_contract": ""
         },
         {
@@ -156,8 +239,8 @@
             "ricardian_contract": ""
         },
         {
-            "name": "setplan",
-            "type": "setplan",
+            "name": "updateplan",
+            "type": "updateplan",
             "ricardian_contract": ""
         },
         {
@@ -168,21 +251,21 @@
     ],
     "tables": [
         {
-            "name": "account",
+            "name": "accounts",
             "type": "Account",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "plan",
+            "name": "plans",
             "type": "Plan",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "term",
+            "name": "terms",
             "type": "Term",
             "index_type": "i64",
             "key_names": [],
