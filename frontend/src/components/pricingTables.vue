@@ -23,9 +23,9 @@
               <span class="text-4xl font-extrabold text-gray-900">{{ plan.price.quantity.amount | formatNumber }} </span>
               <span class="text-base font-medium text-gray-500">
                 {{ plan.price.quantity.symbol }}
-                <span v-if="plan.plan_days === 1">/ day</span>
-                <span v-else-if="plan.plan_days === 7">/ week</span>
-                <span v-else-if="plan.plan_days === 31">/ mo</span>
+                <span v-if="plan.plan_hours === 24">/ day</span>
+                <span v-else-if="plan.plan_hours === 168">/ week</span>
+                <span v-else-if="plan.plan_hours === 744">/ mo</span>
               </span>
             </p>
             <div
@@ -143,7 +143,7 @@ export default {
 
     userTermActiveTill () {
       if (!this.userTerm) return undefined
-      return parseUtcDate(this.userTerm.start_time).add(this.userTerm.term_days, 'days').format('MMM DD, hh:mm A')
+      return parseUtcDate(this.userTerm.start_time).add(this.userTerm.term_hours, 'hours').format('MMM DD, hh:mm A')
     }
   },
 
@@ -167,7 +167,7 @@ export default {
       })
 
       if (rows && rows.length && rows[0].account === actor) {
-        const isInFuture = isUtcInFuture(parseUtcDate(rows[0].start_time).add(rows[0].term_days, 'days'))
+        const isInFuture = isUtcInFuture(parseUtcDate(rows[0].start_time).add(rows[0].term_hours, 'hours'))
         if (isInFuture) {
           this.userTerm = rows[0]
         }

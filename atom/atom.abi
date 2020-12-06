@@ -26,7 +26,7 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "plan_days",
+                    "name": "plan_hours",
                     "type": "uint64"
                 },
                 {
@@ -78,7 +78,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "term_days",
+                    "name": "term_hours",
                     "type": "uint64"
                 },
                 {

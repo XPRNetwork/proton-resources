@@ -1,7 +1,9 @@
-cleosp push action resources addplan '{
+cleospt push action resources cleanup '[]' -p resources
+
+cleospt push action resources addplan '{
         "plan": {
                 "index": 0,
-                "plan_days": 31,
+                "plan_hours": 744,
                 "max_quantity": 3,
                 "cpu_credits": "100.0000 SYS",
                 "net_credits": "25.0000 SYS",
@@ -19,10 +21,10 @@ cleosp push action resources addplan '{
         }
 }' -p resources;
 
-cleosp push action resources addplan '{
+cleospt push action resources addplan '{
         "plan": {
                 "index": 1,
-                "plan_days": 31,
+                "plan_hours": 744,
                 "max_quantity": 3,
                 "cpu_credits": "1000.0000 SYS",
                 "net_credits": "250.0000 SYS",
@@ -42,10 +44,10 @@ cleosp push action resources addplan '{
 }' -p resources;
 
 
-cleospt push action resources updateplan '{
+cleosptt push action resources updateplan '{
         "plan": {
                 "index": 2,
-                "plan_days": 31,
+                "plan_hours": 744,
                 "max_quantity": 3,
                 "cpu_credits": "10000.0000 SYS",
                 "net_credits": "2500.0000 SYS",
@@ -66,10 +68,10 @@ cleospt push action resources updateplan '{
 }' -p resources;
 
 
-cleosp push action resources addplan '{
+cleospt push action resources addplan '{
         "plan": {
                 "index": 3,
-                "plan_days": 31,
+                "plan_hours": 744,
                 "max_quantity": 3,
                 "cpu_credits": "100000.0000 SYS",
                 "net_credits": "25000.0000 SYS",

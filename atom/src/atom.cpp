@@ -46,11 +46,11 @@ namespace proton
 
     // Process term upgrade if exists
     if (term_itr != _terms.end()) {
-      // Refund if days left
-      auto days_left = term_itr->days_left();
-      if (days_left > 0) {
+      // Refund if hours left
+      auto hours_left = term_itr->hours_left();
+      if (hours_left > 0) {
         auto refund_price = term_itr->price;
-        refund_price.quantity.amount = (uint64_t)(((float)days_left / (float)term_itr->term_days) * (float)refund_price.quantity.amount);
+        refund_price.quantity.amount = (uint64_t)(((float)hours_left / (float)term_itr->term_hours) * (float)refund_price.quantity.amount);
         add_balance(account, refund_price);
       }
 
@@ -78,7 +78,7 @@ namespace proton
       t.net_credits = plan_itr->net_credits;
       t.ram_bytes   = plan_itr->ram_bytes;
       t.price       = adjusted_price;
-      t.term_days   = plan_itr->plan_days * plan_quantity;
+      t.term_hours  = plan_itr->plan_hours * plan_quantity;
 
       // Plan receipt
       planreceipt_action pr_action( get_self(), {get_self(), "active"_n} );
@@ -101,7 +101,7 @@ namespace proton
   void atom::process (const uint64_t& max) {
     if (_terms.begin() != _terms.end()) {
       auto idx = _terms.get_index<"bytime"_n>();
-      auto itr = idx.lower_bound(eosio::current_time_point().elapsed.count());
+      auto itr = idx.lower_bound(std::numeric_limits<uint64_t>::max());
       auto oitr = itr;
 
       for (uint16_t i = 0; i < max; ++i) {
