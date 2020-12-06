@@ -29,24 +29,24 @@
               </span>
             </p>
             <div
-              @click="() => !(userTerm && plan.index < indexOfUserTerm) && selectPlan(plan)"
+              @click="() => !(userSubscription && plan.index < indexOfUserSubscription) && selectPlan(plan)"
               :class="{
-                'transform hover:scale-105 duration-500': !(userTerm && plan.index < indexOfUserTerm)
+                'transform hover:scale-105 duration-500': !(userSubscription && plan.index < indexOfUserSubscription)
               }"
             >
               <!-- Active Plan -->
               <button
                 class="mt-8 block w-full bg-blue-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-blue-700 cursor-pointer"
-                v-if="userTerm && plan.index === indexOfUserTerm"
+                v-if="userSubscription && plan.index === indexOfUserSubscription"
                 @mouseover="activeHover = true"
                 @mouseleave="activeHover= false"
               >
-                {{ activeHover ? 'Renew?' : `Plan ends @ ${userTermActiveTill}` }}
+                {{ activeHover ? 'Renew?' : `Plan ends @ ${userSubscriptionActiveTill}` }}
               </button>
               <!-- Upgradeable to -->
               <button
                 class="mt-8 block w-full bg-purple-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-purple-700 cursor-pointer"
-                v-else-if="userTerm && plan.index > indexOfUserTerm"
+                v-else-if="userSubscription && plan.index > indexOfUserSubscription"
               >
                 Upgrade to {{ plan.name }}
               </button>
@@ -54,8 +54,8 @@
               <button
                 class="mt-8 block w-full bg-purple-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-purple-700"
                 :class="{
-                  'cursor-pointer': !(userTerm && plan.index < indexOfUserTerm),
-                  'opacity-50 cursor-not-allowed': userTerm && plan.index < indexOfUserTerm
+                  'cursor-pointer': !(userSubscription && plan.index < indexOfUserSubscription),
+                  'opacity-50 cursor-not-allowed': userSubscription && plan.index < indexOfUserSubscription
                 }"
                 v-else
               >
@@ -106,7 +106,7 @@ export default {
     return {
       CHAIN,
       selectedPlan: undefined,
-      userTerm: undefined,
+      userSubscription: undefined,
       activeHover: false,
       plans: []
     }
@@ -117,10 +117,10 @@ export default {
       immediate: true,
       handler: function () {
         if (this.actor) {
-          this.getTermForUser(this.actor)
+          this.getSubscriptionForUser(this.actor)
         } else {
           this.selectedPlan = undefined
-          this.userTerm = undefined
+          this.userSubscription = undefined
         }
       }
     }
@@ -131,19 +131,19 @@ export default {
       actor: state => state.user.actor
     }),
 
-    indexOfUserTerm () {
-      if (!this.userTerm) return -1
+    indexOfUserSubscription () {
+      if (!this.userSubscription) return -1
       return this.plans.findIndex(plan =>
-        plan.cpu_credits.original === this.userTerm.cpu_credits &&
-        plan.net_credits.original === this.userTerm.net_credits &&
-        plan.price.quantity.original === this.userTerm.price.quantity &&
-        plan.price.contract === this.userTerm.price.contract
+        plan.cpu_credits.original === this.userSubscription.cpu_credits &&
+        plan.net_credits.original === this.userSubscription.net_credits &&
+        plan.price.quantity.original === this.userSubscription.price.quantity &&
+        plan.price.contract === this.userSubscription.price.contract
       )
     },
 
-    userTermActiveTill () {
-      if (!this.userTerm) return undefined
-      return parseUtcDate(this.userTerm.start_time).add(this.userTerm.term_hours, 'hours').format('MMM DD, hh:mm A')
+    userSubscriptionActiveTill () {
+      if (!this.userSubscription) return undefined
+      return parseUtcDate(this.userSubscription.start_time).add(this.userSubscription.subscription_hours, 'hours').format('MMM DD, hh:mm A')
     }
   },
 
@@ -157,19 +157,19 @@ export default {
       this.selectedPlan = plan
     },
 
-    async getTermForUser (actor) {
+    async getSubscriptionForUser (actor) {
       const { rows } = await rpc.get_table_rows({
         code: ATOM_CONTRACT,
         scope: ATOM_CONTRACT,
-        table: 'terms',
+        table: 'subscription',
         lower_bound: actor,
         limit: 1
       })
 
       if (rows && rows.length && rows[0].account === actor) {
-        const isInFuture = isUtcInFuture(parseUtcDate(rows[0].start_time).add(rows[0].term_hours, 'hours'))
+        const isInFuture = isUtcInFuture(parseUtcDate(rows[0].start_time).add(rows[0].subscription_hours, 'hours'))
         if (isInFuture) {
-          this.userTerm = rows[0]
+          this.userSubscription = rows[0]
         }
       }
     },
@@ -231,7 +231,7 @@ export default {
 
       await this.transact({ actions })
 
-      this.getTermForUser(this.actor)
+      this.getSubscriptionForUser(this.actor)
 
       this.selectedPlan = undefined
     }

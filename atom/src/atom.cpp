@@ -41,24 +41,24 @@ namespace proton
     // Find account
     auto acc_itr = _accounts.require_find(account.value, "account not found");
 
-    // Save plan term
-    auto term_itr = _terms.find(account.value);
+    // Save plan subscription
+    auto term_itr = _subscriptions.find(account.value);
 
-    // Process term upgrade if exists
-    if (term_itr != _terms.end()) {
+    // Process subscription upgrade if exists
+    if (term_itr != _subscriptions.end()) {
       // Refund if hours left
       auto hours_left = term_itr->hours_left();
       if (hours_left > 0) {
         auto refund_price = term_itr->price;
-        refund_price.quantity.amount = (uint64_t)(((float)hours_left / (float)term_itr->term_hours) * (float)refund_price.quantity.amount);
+        refund_price.quantity.amount = (uint64_t)(((float)hours_left / (float)term_itr->subscription_hours) * (float)refund_price.quantity.amount);
         add_balance(account, refund_price);
       }
 
-      // Process term
-      end_term(*term_itr);
+      // Process subscription
+      end_subscription(*term_itr);
 
-      // Delete term
-      _terms.erase(term_itr);
+      // Delete subscription
+      _subscriptions.erase(term_itr);
     }
 
     // Reduce balance
@@ -71,14 +71,14 @@ namespace proton
       transfer_to(FEE_ACCOUNT, adjusted_price, account.to_string());
     }
 
-    // New Term
-    _terms.emplace(get_self(), [&](auto& t) {
+    // New Subscription
+    _subscriptions.emplace(get_self(), [&](auto& t) {
       t.account     = account;
       t.cpu_credits = plan_itr->cpu_credits;
       t.net_credits = plan_itr->net_credits;
       t.ram_bytes   = plan_itr->ram_bytes;
       t.price       = adjusted_price;
-      t.term_hours  = plan_itr->plan_hours * plan_quantity;
+      t.subscription_hours  = plan_itr->plan_hours * plan_quantity;
 
       // Plan receipt
       planreceipt_action pr_action( get_self(), {get_self(), "active"_n} );
@@ -99,25 +99,27 @@ namespace proton
   }
 
   void atom::process (const uint64_t& max) {
-    if (_terms.begin() != _terms.end()) {
-      auto idx = _terms.get_index<"bytime"_n>();
+    if (_subscriptions.begin() != _subscriptions.end()) {
+      auto idx = _subscriptions.get_index<"bytime"_n>();
       auto itr = idx.lower_bound(std::numeric_limits<uint64_t>::max());
       auto oitr = itr;
+
+      // eosio::check(false, "Account: " + itr->account.to_string() + " A: " + std::to_string(itr == idx.end()) + " B: " + std::to_string(itr->is_active()));
 
       for (uint16_t i = 0; i < max; ++i) {
         itr = oitr;
         if (itr == idx.end() || itr->is_active()) break;
-        end_term(*itr);
+        end_subscription(*itr);
         oitr = std::next(itr);
         idx.erase(itr);
       }
     }
   }
 
-  void atom::end_term(const Term& term) {
-    if (term.cpu_credits.amount > 0 || term.net_credits.amount > 0) {
+  void atom::end_subscription(const Subscription& subscription) {
+    if (subscription.cpu_credits.amount > 0 || subscription.net_credits.amount > 0) {
       undelegatebw_action udb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
-      udb_action.send(get_self(), term.account, term.net_credits, term.cpu_credits);
+      udb_action.send(get_self(), subscription.account, subscription.net_credits, subscription.cpu_credits);
     }
   }
 } // namepsace contract

@@ -36,20 +36,20 @@ namespace proton {
   typedef eosio::multi_index<"plans"_n, Plan> plan_table;
 
   /**
-   * TERM
+   * Subscription
    */
-  struct [[eosio::table, eosio::contract("atom")]] Term: public PlanBase {
+  struct [[eosio::table, eosio::contract("atom")]] Subscription: public PlanBase {
     eosio::name account;
-    uint64_t term_hours;
+    uint64_t subscription_hours;
     eosio::time_point start_time = eosio::current_time_point();
 
     uint64_t primary_key() const { return account.value; };
-    eosio::time_point end_time()const { return start_time + eosio::time_point(eosio::seconds(SECONDS_IN_HOUR * term_hours)); };
-    bool is_active()const { return eosio::current_time_point() > start_time; };
+    eosio::time_point end_time()const { return start_time + eosio::time_point(eosio::seconds(SECONDS_IN_HOUR * subscription_hours)); };
+    bool is_active()const { return eosio::current_time_point() < end_time(); };
     uint64_t by_time()const { return is_active() ? end_time().elapsed.count() : std::numeric_limits<uint64_t>::max(); }
     uint64_t hours_left()const { return (end_time().sec_since_epoch() - eosio::current_time_point().sec_since_epoch()) / SECONDS_IN_HOUR; };
   };
-  typedef eosio::multi_index<"terms"_n, Term,
-    eosio::indexed_by<"bytime"_n, eosio::const_mem_fun<Term, uint64_t, &Term::by_time>>
-  > term_table;
+  typedef eosio::multi_index<"subscription"_n, Subscription,
+    eosio::indexed_by<"bytime"_n, eosio::const_mem_fun<Subscription, uint64_t, &Subscription::by_time>>
+  > subscription_table;
 }

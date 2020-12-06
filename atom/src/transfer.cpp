@@ -2,9 +2,6 @@
 
 namespace proton {
   void atom::ontransfer (const eosio::name& from, const eosio::name& to, const eosio::asset& quantity, const std::string& memo) {
-    // Process action
-    process(10);
-
     // Skip if outgoing
     if (from == get_self()) {
       return;
@@ -27,6 +24,9 @@ namespace proton {
     eosio::name token_contract = get_first_receiver();
     auto balance_to_add = eosio::extended_asset(quantity, token_contract);
     add_balance(from, balance_to_add);
+
+    // Process action
+    process(MAX_PROCESS);
   }
 
   void atom::withdraw (const eosio::name& account, const eosio::extended_asset& balance) {

@@ -70,7 +70,7 @@
             ]
         },
         {
-            "name": "Term",
+            "name": "Subscription",
             "base": "PlanBase",
             "fields": [
                 {
@@ -78,7 +78,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "term_hours",
+                    "name": "subscription_hours",
                     "type": "uint64"
                 },
                 {
@@ -157,8 +157,8 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "term",
-                    "type": "Term"
+                    "name": "subscription",
+                    "type": "Subscription"
                 }
             ]
         },
@@ -265,8 +265,8 @@
             "key_types": []
         },
         {
-            "name": "terms",
-            "type": "Term",
+            "name": "subscription",
+            "type": "Subscription",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
