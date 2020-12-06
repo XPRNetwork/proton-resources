@@ -43,7 +43,7 @@ describe("Atom", function (eoslime) {
         // Tables
         accountsTables = atomContract.tables.accounts;
         plansTables = atomContract.tables.plans;
-        termsTables = atomContract.tables.terms;
+        subscriptionsTables = atomContract.tables.subscriptions;
 
         // Objects
         plan0Base = {
@@ -225,16 +225,16 @@ describe("Atom", function (eoslime) {
         await tokenContract.actions.transfer([tokensHolder.name, atomContract.name, `100.0000 XPR`, ""], { from: tokensHolder });
         await atomContract.actions.buyplan([tokensHolder.name, 0, 2], { from: tokensHolder })
 
-        const terms = await termsTables.find();
-        assert.deepStrictEqual(terms, [{
+        const subscriptions = await subscriptionsTables.find();
+        assert.deepStrictEqual(subscriptions, [{
             ...plan0Base,
             price: {
                 contract: tokenContract.name,
                 quantity: '20.0000 XPR'
             },
-            term_hours: 1440,
+            subscription_hours: 1440,
             account: tokensHolder.name,
-            start_time: terms[0].start_time
+            start_time: subscriptions[0].start_time
         }])
 
         const accounts = await accountsTables.find();
@@ -252,7 +252,7 @@ describe("Atom", function (eoslime) {
         }])
     });
 
-    it("Fail if Buying more Terms than Plan Max", async () => {
+    it("Fail if Buying more Subscriptions than Plan Max", async () => {
         await atomContract.actions.addplan([plan0])
         await tokenContract.actions.transfer([tokensHolder.name, atomContract.name, `100.0000 XPR`, ""], { from: tokensHolder });
         await eoslime.tests.expectAssert(
@@ -267,16 +267,16 @@ describe("Atom", function (eoslime) {
         await atomContract.actions.buyplan([tokensHolder.name, 0, 1], { from: tokensHolder })
         await atomContract.actions.buyplan([tokensHolder.name, 2, 1], { from: tokensHolder })
 
-        const terms = await termsTables.find();
-        assert.deepStrictEqual(terms, [{
+        const subscriptions = await subscriptionsTables.find();
+        assert.deepStrictEqual(subscriptions, [{
             ...plan0Base,
             price: {
                 contract: tokenContract.name,
                 quantity: '50.0000 XPR'
             },
             account: tokensHolder.name,
-            term_hours: 720,
-            start_time: terms[0].start_time
+            subscription_hours: 720,
+            start_time: subscriptions[0].start_time
         }])
 
         const accounts = await accountsTables.find();
@@ -301,16 +301,16 @@ describe("Atom", function (eoslime) {
         await atomContract.actions.buyplan([tokensHolder.name, 0, 1], { from: tokensHolder })
         await atomContract.actions.buyplan([tokensHolder.name, 2, 2], { from: tokensHolder })
 
-        const terms = await termsTables.find();
-        assert.deepStrictEqual(terms, [{
+        const subscriptions = await subscriptionsTables.find();
+        assert.deepStrictEqual(subscriptions, [{
             ...plan0Base,
             price: {
                 contract: tokenContract.name,
                 quantity: '100.0000 XPR'
             },
             account: tokensHolder.name,
-            term_hours: 1440,
-            start_time: terms[0].start_time
+            subscription_hours: 1440,
+            start_time: subscriptions[0].start_time
         }])
 
         const accounts = await accountsTables.find();
@@ -328,25 +328,25 @@ describe("Atom", function (eoslime) {
         }])
     });
 
-    it("Proces term that has ended", async () => {
+    it("Proces subscription that has ended", async () => {
         await atomContract.actions.addplan([plan1])
         await tokenContract.actions.transfer([tokensHolder.name, atomContract.name, `10.0000 XPR`, ""], { from: tokensHolder });
         await atomContract.actions.buyplan([tokensHolder.name, 1, 1], { from: tokensHolder })
 
-        let terms = await termsTables.find()
-        assert.deepStrictEqual(terms, [{
+        let subscriptions = await subscriptionsTables.find()
+        assert.deepStrictEqual(subscriptions, [{
             ...plan1Base,
             account: tokensHolder.name,
             price: {
                 contract: tokenContract.name,
                 quantity: '10.0000 XPR'
             },
-            term_hours: 0,
-            start_time: terms[0].start_time
+            subscription_hours: 0,
+            start_time: subscriptions[0].start_time
         }])
 
         await atomContract.actions.process([10], { from: tokensHolder })
-        terms = await termsTables.find()
-        assert.deepStrictEqual(terms, [])
+        subscriptions = await subscriptionsTables.find()
+        assert.deepStrictEqual(subscriptions, [])
     })
 });

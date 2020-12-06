@@ -9,4 +9,5 @@ namespace proton
   static constexpr auto SECONDS_IN_HOUR   = SECONDS_IN_MINUTE * 60;
   static constexpr auto SECONDS_IN_DAY    = SECONDS_IN_HOUR * 24;
   static constexpr auto MAX_TERM_MONTHS   = 3;
+  static constexpr auto MAX_PROCESS       = 5;
 } // namespace proton

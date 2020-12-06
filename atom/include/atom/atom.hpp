@@ -22,7 +22,7 @@ namespace proton {
       : contract(receiver, code, ds),
         _accounts(receiver, receiver.value),
         _plans(receiver, receiver.value),
-        _terms(receiver, receiver.value) {}
+        _subscriptions(receiver, receiver.value) {}
 
     ACTION addplan    ( const Plan& plan                     );
     ACTION updateplan ( const Plan& plan                     );
@@ -31,8 +31,8 @@ namespace proton {
                         const uint64_t& plan_index,
                         const uint32_t& plan_quantity        );
     ACTION planreceipt( const uint64_t& plan_index,
-                        const Term& term) {
-      require_recipient(term.account);
+                        const Subscription& subscription) {
+      require_recipient(subscription.account);
     };
 
     ACTION withdraw   ( const eosio::name& account,
@@ -48,7 +48,7 @@ namespace proton {
         itr = db.erase(--itr);
       }
 
-      term_table db3(get_self(), get_self().value);
+      subscription_table db3(get_self(), get_self().value);
       auto itr3 = db3.end();
       while(db3.begin() != itr3){
         itr3 = db3.erase(--itr3);
@@ -92,12 +92,12 @@ namespace proton {
     // Initialize tables from tables.hpp
     account_table _accounts;
     plan_table _plans;
-    term_table _terms;
+    subscription_table _subscriptions;
 
   private:
     void add_balance (const eosio::name& account, const eosio::extended_asset& delta);
     void substract_balance (const eosio::name& account, const eosio::extended_asset& delta);
-    void end_term(const Term& term);
+    void end_subscription(const Subscription& subscription);
     void transfer_to(const eosio::name& to, const eosio::extended_asset& balance, const std::string& memo);
   };
 }
