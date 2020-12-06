@@ -55,7 +55,7 @@ describe("Atom", function (eoslime) {
         plan0 = {
             ...plan0Base,
             index: 0,
-            plan_days: 30,
+            plan_hours: 720,
             max_quantity: 3,
             name: "",
             description: "",
@@ -68,7 +68,7 @@ describe("Atom", function (eoslime) {
         plan1 = {
             ...plan1Base,
             index: 1,
-            plan_days: 0,
+            plan_hours: 0,
             max_quantity: 3,
             name: "",
             description: "",
@@ -79,7 +79,7 @@ describe("Atom", function (eoslime) {
             ...plan0Base,
             index: 2,
             price: `50.0000 XPR@${tokenContract.name}`,
-            plan_days: 30,
+            plan_hours: 720,
             max_quantity: 3,
             name: "",
             description: "",
@@ -232,7 +232,7 @@ describe("Atom", function (eoslime) {
                 contract: tokenContract.name,
                 quantity: '20.0000 XPR'
             },
-            term_days: 60,
+            term_hours: 1440,
             account: tokensHolder.name,
             start_time: terms[0].start_time
         }])
@@ -275,7 +275,7 @@ describe("Atom", function (eoslime) {
                 quantity: '50.0000 XPR'
             },
             account: tokensHolder.name,
-            term_days: 30,
+            term_hours: 720,
             start_time: terms[0].start_time
         }])
 
@@ -309,7 +309,7 @@ describe("Atom", function (eoslime) {
                 quantity: '100.0000 XPR'
             },
             account: tokensHolder.name,
-            term_days: 60,
+            term_hours: 1440,
             start_time: terms[0].start_time
         }])
 
@@ -341,7 +341,7 @@ describe("Atom", function (eoslime) {
                 contract: tokenContract.name,
                 quantity: '10.0000 XPR'
             },
-            term_days: 0,
+            term_hours: 0,
             start_time: terms[0].start_time
         }])
 

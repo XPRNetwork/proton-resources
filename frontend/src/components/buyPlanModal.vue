@@ -52,9 +52,9 @@
                   </button>
                 </span>
 
-                <span v-if="plan.plan_days === 1">day</span>
-                <span v-else-if="plan.plan_days === 7">week</span>
-                <span v-else-if="plan.plan_days === 31">month</span>
+                <span v-if="plan.plan_hours === 24">day</span>
+                <span v-else-if="plan.plan_hours === 168">week</span>
+                <span v-else-if="plan.plan_hours === 744">month</span>
                 <span v-if="quantity > 1">s</span>
               </h3>
               <div class="mt-6">
@@ -99,12 +99,12 @@ export default {
 
   computed: {
     lastTill () {
-      if (this.plan.plan_days === 0) {
+      if (this.plan.plan_hours === 0) {
         return 'infinitely'
       }
 
-      const days = this.quantity * this.plan.plan_days
-      return 'till ' + parseDate(new Date()).add(days, 'days').format('MMM DD YYYY, hh:mm A')
+      const hours = this.quantity * this.plan.plan_hours
+      return 'till ' + parseDate(new Date()).add(hours, 'hours').format('MMM DD YYYY, hh:mm A')
     }
   },
 
