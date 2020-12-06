@@ -101,7 +101,7 @@ namespace proton
   void atom::process (const uint64_t& max) {
     if (_terms.begin() != _terms.end()) {
       auto idx = _terms.get_index<"bytime"_n>();
-      auto itr = idx.begin();
+      auto itr = idx.lower_bound(eosio::current_time_point().elapsed.count());
       auto oitr = itr;
 
       for (uint16_t i = 0; i < max; ++i) {
