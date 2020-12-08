@@ -47,10 +47,10 @@ namespace proton
     // Process subscription upgrade if exists
     if (term_itr != _subscriptions.end()) {
       // Refund if hours left
-      auto hours_left = term_itr->hours_left();
+      float hours_left = (term_itr->end_time() - eosio::current_time_point().sec_since_epoch()) / (float) SECONDS_IN_HOUR;
       if (hours_left > 0) {
         auto refund_price = term_itr->price;
-        refund_price.quantity.amount = (uint64_t)(((float)hours_left / (float)term_itr->subscription_hours) * (float)refund_price.quantity.amount);
+        refund_price.quantity.amount = (uint64_t)((hours_left / (float)term_itr->subscription_hours) * (float)refund_price.quantity.amount);
         add_balance(account, refund_price);
       }
 
@@ -101,14 +101,21 @@ namespace proton
   void atom::process (const uint64_t& max) {
     if (_subscriptions.begin() != _subscriptions.end()) {
       auto idx = _subscriptions.get_index<"bytime"_n>();
-      auto itr = idx.lower_bound(std::numeric_limits<uint64_t>::max());
+      auto itr = idx.begin();
       auto oitr = itr;
 
-      // eosio::check(false, "Account: " + itr->account.to_string() + " A: " + std::to_string(itr == idx.end()) + " B: " + std::to_string(itr->is_active()));
+      // itr++;
+      // eosio::check(false, "Account: " + itr->account.to_string() + 
+      //                     " A: " + std::to_string(itr == idx.end()) + 
+      //                     " B: " + std::to_string(eosio::current_time_point().sec_since_epoch() < itr->end_time()) +
+      //                     " Start Time: " + std::to_string(itr->start_time.sec_since_epoch()) +
+      //                     " End Time: " + std::to_string(itr->end_time()) +
+      //                     " Current Time: " + std::to_string(eosio::current_time_point().sec_since_epoch())
+      //             );
 
       for (uint16_t i = 0; i < max; ++i) {
         itr = oitr;
-        if (itr == idx.end() || itr->is_active()) break;
+        if (itr == idx.end() || eosio::current_time_point().sec_since_epoch() < itr->end_time()) break;
         end_subscription(*itr);
         oitr = std::next(itr);
         idx.erase(itr);
