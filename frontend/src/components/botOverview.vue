@@ -64,12 +64,12 @@
                     </span>
                   </td>
                   <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                    {{ tx.time }}
+                    {{ parseDate(tx.time).format('hh:mm:ss A, MMM DD YYYY') }}
                   </td>
                 </tr>
               </tbody>
             </table>
-            <!-- Pagination -->
+
             <nav class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
               <div class="hidden sm:block">
                 <p class="text-sm text-gray-700">
@@ -78,14 +78,6 @@
                   results
                 </p>
               </div>
-              <!-- <div class="flex-1 flex justify-between sm:justify-end">
-                <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                  Previous
-                </a>
-                <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                  Next
-                </a>
-              </div> -->
             </nav>
           </div>
         </div>
@@ -99,6 +91,7 @@ import OverviewCard from '@/components/overviewCard'
 import BotClass from '@/components/botClass.vue'
 import { BOT_CONTRACT, CHAIN } from '@/constants'
 import { rpc } from '@/api/user'
+import { parseDate } from '@/utils'
 
 const MAX_BOTS = 4
 
@@ -124,6 +117,7 @@ export default {
   },
 
   methods: {
+    parseDate,
     async fetchBots () {
       const { rows } = await rpc.get_table_rows({
         code: BOT_CONTRACT,
@@ -134,7 +128,7 @@ export default {
 
       if (rows && rows.length) {
         this.bots = await Promise.all(rows.slice(0, MAX_BOTS).map(async (bot, i) => {
-          if (!this.bots.length) {
+          if (!this.selectedBot) {
             const account = await rpc.get_account(bot.account)
             bot.acc = account
           } else {
@@ -146,6 +140,8 @@ export default {
 
         if (!this.selectedBot) {
           this.selectedBot = this.bots[0]
+        } else {
+          this.selectedBot = this.bots.find(bot => bot.index === this.selectedBot.index)
         }
       }
     }
