@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-    <h2 class="text-lg leading-6 font-medium text-gray-900">
-      BOT Class
+    <h2 class="text-lg mb-4 leading-6 font-medium text-gray-900">
+      Bot Tier
     </h2>
 
     <!-- Mobile dropdown -->
@@ -23,9 +23,9 @@
       <div class="border-b border-gray-200">
         <nav class="-mb-px flex" aria-label="Tabs">
           <a
-            v-for="tier of tiers"
+            v-for="(tier, i) of tiers"
             :key="tier"
-            @click="selectedTier = tier"
+            @click="() => selectTier(tier, i)"
             class="w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm cursor-pointer"
             :class="{
               'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tier !== selectedTier,
@@ -47,6 +47,12 @@ export default {
     return {
       tiers: ['Basic', 'Plus', 'Pro', 'Enterprise'],
       selectedTier: 'Basic'
+    }
+  },
+  methods: {
+    selectTier (tier, i) {
+      this.selectedTier = tier
+      this.$emit('select-bot-index', i)
     }
   }
 }

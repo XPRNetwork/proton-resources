@@ -4,6 +4,7 @@ export const CHAIN = process.env.VUE_APP_CHAIN || subdomainChain
 
 export const ATOM_CONTRACT = 'resources'
 export const TOKEN_CONTRACT = 'eosio.token'
+export const BOT_CONTRACT = 'bot'
 
 export const requestAccount = 'resources'
 export const endpoints = CHAIN === 'proton' ? ['https://proton.greymass.com'] : ['https://testnet.protonchain.com']

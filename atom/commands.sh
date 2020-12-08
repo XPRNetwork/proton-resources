@@ -1,10 +1,10 @@
-cleospt set contract resources atom
-cleospt push action resources cleanup '[]' -p resources
+cleosp set contract resources atom
+cleosp push action resources cleanup '[]' -p resources
 
 cleospt push action resources addplan '{
         "plan": {
                 "index": 0,
-                "plan_hours": 1,
+                "plan_hours": 744,
                 "max_quantity": 3,
                 "cpu_credits": "100.0000 SYS",
                 "net_credits": "25.0000 SYS",
@@ -22,7 +22,7 @@ cleospt push action resources addplan '{
         }
 }' -p resources;
 
-cleospt push action resources addplan '{
+cleosp push action resources addplan '{
         "plan": {
                 "index": 1,
                 "plan_hours": 744,
@@ -45,7 +45,7 @@ cleospt push action resources addplan '{
 }' -p resources;
 
 
-cleospt push action resources addplan '{
+cleosp push action resources addplan '{
         "plan": {
                 "index": 2,
                 "plan_hours": 744,
@@ -69,7 +69,7 @@ cleospt push action resources addplan '{
 }' -p resources;
 
 
-cleospt push action resources addplan '{
+cleosp push action resources addplan '{
         "plan": {
                 "index": 3,
                 "plan_hours": 744,
