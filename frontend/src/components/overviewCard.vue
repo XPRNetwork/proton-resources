@@ -14,7 +14,7 @@
             </dt>
             <dd>
               <div class="text-lg font-medium text-gray-900">
-                {{ text }}
+                <slot/>
               </div>
             </dd>
           </dl>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  props: ['title', 'text']
+  props: ['title']
 }
 </script>
 

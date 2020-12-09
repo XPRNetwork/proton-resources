@@ -7,9 +7,15 @@
         Overview
       </h2>
       <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <OverviewCard title="Transactions per day" :text="transactionsPerHour"/>
-        <OverviewCard title="CPU Usage" :text="`${selectedBot ? ((selectedBot.acc.cpu_limit.used / selectedBot.acc.cpu_limit.max) * 100).toFixed(2) : 0}%`"/>
-        <OverviewCard title="NET Usage" :text="`${selectedBot ? ((selectedBot.acc.net_limit.used / selectedBot.acc.net_limit.max) * 100).toFixed(2) : 0}%`"/>
+        <OverviewCard title="Transactions per day">
+         {{ transactionsPerHour | formatNumber }}
+        </OverviewCard>
+        <OverviewCard title="CPU Usage">
+          {{ selectedBot ? ((selectedBot.acc.cpu_limit.used / selectedBot.acc.cpu_limit.max) * 100).toFixed(2) : 0 }}%
+        </OverviewCard>
+        <OverviewCard title="NET Usage">
+          {{ selectedBot ? ((selectedBot.acc.net_limit.used / selectedBot.acc.net_limit.max) * 100).toFixed(2) : 0 }}%
+        </OverviewCard>
       </div>
     </div>
 
@@ -56,7 +62,7 @@
                     </div>
                   </td>
                   <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                    <span class="text-gray-900 font-medium">{{ tx.data[1] }} </span>
+                    <span class="text-gray-900 font-medium">{{ tx.data.d_double || tx.data.d_string || tx.data.d_uint64_t }} </span>
                   </td>
                   <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize">
