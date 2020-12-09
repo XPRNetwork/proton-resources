@@ -1,4 +1,4 @@
-cleosp push transaction '{
+cleos -u https://testnet.protonchain.com push transaction '{
   "delay_sec": 0,
   "max_cpu_usage_ms": 0,
   "actions": [
@@ -6,15 +6,15 @@ cleosp push transaction '{
       "account": "eosio.token",
       "name": "transfer",
       "data": {
-        "from": "a.resources",
+        "from": "syedjafri",
         "to": "eosio.token",
         "quantity": "0.0001 XPR",
         "memo": ""
       },
       "authorization": [
         {
-          "actor": "a.resources",
-          "permission": "owner"
+          "actor": "syedjafri",
+          "permission": "active"
         }
       ]
     },
@@ -79,4 +79,4 @@ cleosp push transaction '{
       ]
     }
   ]
-}' -p admin.proton@light
+}'
