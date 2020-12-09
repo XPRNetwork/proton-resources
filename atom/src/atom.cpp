@@ -124,9 +124,13 @@ namespace proton
   }
 
   void atom::end_subscription(const Subscription& subscription) {
+    // Unstake all amounts from an account
     if (subscription.cpu_credits.amount > 0 || subscription.net_credits.amount > 0) {
+      auto delband = del_bandwidth_table(SYSTEM_CONTRACT, get_self().value);
+      auto staked = delband.require_find(subscription.account.value);
+
       undelegatebw_action udb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
-      udb_action.send(get_self(), subscription.account, subscription.net_credits, subscription.cpu_credits);
+      udb_action.send(get_self(), subscription.account, staked->net_weight, staked->cpu_weight);
     }
   }
 } // namepsace contract
