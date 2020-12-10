@@ -8,7 +8,7 @@
       </h2>
       <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <OverviewCard title="Transactions per day">
-         {{ transactionsPerHour | formatNumber }}
+         {{ transactionsPerDay | formatNumber }}
         </OverviewCard>
         <OverviewCard title="CPU Usage">
           {{ selectedBot ? ((selectedBot.acc.cpu_limit.used / selectedBot.acc.cpu_limit.max) * 100).toFixed(2) : 0 }}%
@@ -30,22 +30,29 @@
             <table class="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Transaction
+                  <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    #
                   </th>
-                  <th class="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Oracle Transaction
+                  </th>
+                  <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Value
                   </th>
-                  <th class="hidden px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider md:block">
+                  <th class="hidden px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider md:block">
                     Status
                   </th>
-                  <th class="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="bg-white" v-for="tx of selectedBot.history" :key="tx.id">
+
+              <transition-group name="list" class="bg-white divide-y divide-gray-200" tag="tbody">
+                <tr class="bg-white" v-for="(tx, i) of selectedBot.history" :key="tx.id">
+                  <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+                    <span class="text-gray-900 font-medium">{{ (transactionsPerDay - i) | formatNumber }}</span>
+                  </td>
                   <td class="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <div class="flex">
                       <a href="#" class="group inline-flex space-x-2 truncate text-sm">
@@ -55,14 +62,14 @@
                         </svg>
                         <a :href="`https://${CHAIN}.bloks.io/tx/${tx.id}`" target="_blank">
                           <p class="text-gray-500 truncate group-hover:text-gray-900">
-                            {{ selectedBot.description }}
+                            BTC/USDT Price
                           </p>
                         </a>
                       </a>
                     </div>
                   </td>
                   <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                    <span class="text-gray-900 font-medium">{{ tx.data.d_double || tx.data.d_string || tx.data.d_uint64_t }} </span>
+                    <span class="text-gray-900 font-medium">${{ tx.data.d_double | formatNumber(2) }} </span>
                   </td>
                   <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize">
@@ -73,7 +80,7 @@
                     {{ parseDate(tx.time).format('hh:mm:ss A, MMM DD YYYY') }}
                   </td>
                 </tr>
-              </tbody>
+              </transition-group>
             </table>
 
             <nav class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
@@ -81,7 +88,7 @@
                 <p class="text-sm text-gray-700">
                   Showing latest
                   <span class="font-medium">{{ selectedBot.history.length }}</span>
-                  results
+                  transactions
                 </p>
               </div>
             </nav>
@@ -116,7 +123,7 @@ export default {
   },
 
   computed: {
-    transactionsPerHour () {
+    transactionsPerDay () {
       if (!this.selectedBot) return 0
       return this.selectedBot.tx_count_by_utc_hour.reduce((acc, txCount) => acc + txCount.value, 0)
     }
@@ -161,5 +168,14 @@ export default {
 </script>
 
 <style>
-
+.list-enter-active, .list-leave-active {
+  transition: all 0.75s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(20px);
+}
+/* .list-move {
+  transition: transform 1s;
+} */
 </style>
