@@ -4,8 +4,7 @@ namespace proton
 {
   void atom::addplan (const Plan& plan) {
     require_auth(get_self());
-    auto plan_itr = _plans.find(plan.index);
-    eosio::check(plan_itr == _plans.end(), "plan already exists");
+    check(_plans.find(plan.index) == _plans.end(), "plan id " + to_string(plan.index) + " already exists");
     _plans.emplace(get_self(), [&](auto& p) {
       p = plan;
     });
@@ -22,36 +21,39 @@ namespace proton
   void atom::removeplan (const uint64_t& plan_index) {
     require_auth(get_self());
 
-    auto plan = _plans.require_find(plan_index, "plan not found");
+    auto plan = _plans.require_find(plan_index, string("plan id : " + to_string(plan_index) + " not found").c_str());
     _plans.erase(plan);
   }
 
   void atom::buyplan (
-    const eosio::name& account,
+    const name& account,
     const uint64_t& plan_index,
     const uint32_t& plan_quantity
   ) {
     // Require auth
     require_auth(account);
 
+    // Verification
+    check(plan_quantity > 0, "plan_quantity must be positive");
+
     // Find Plan
     auto plan_itr = _plans.require_find(plan_index, "plan not found");
-    eosio::check(plan_quantity <= plan_itr->max_quantity, "too many plans");
+    check(plan_quantity <= plan_itr->max_quantity, "too many plans. Maximum allowed is " + to_string(plan_itr->max_quantity) + " but you entered " + to_string(plan_quantity));
 
     // Find account
-    auto acc_itr = _accounts.require_find(account.value, "account not found");
+    auto acc_itr = _accounts.require_find(account.value, string("account " + account.to_string() + " not found").c_str());
 
     // Save plan subscription
     auto term_itr = _subscriptions.find(account.value);
 
     // Process subscription upgrade if exists
     if (term_itr != _subscriptions.end()) {
-      // Refund if hours left
-      float hours_left = (term_itr->end_time() - eosio::current_time_point().sec_since_epoch()) / (float) SECONDS_IN_HOUR;
+      // Refund any time over 24 hours left
+      float hours_left = ((term_itr->end_time() - current_time_point().sec_since_epoch()) / (float) SECONDS_IN_HOUR) - HOURS_IN_DAY;
       if (hours_left > 0) {
         auto refund_price = term_itr->price;
         refund_price.quantity.amount = (uint64_t)((hours_left / (float)term_itr->subscription_hours) * (float)refund_price.quantity.amount);
-        add_balance(account, refund_price);
+        transfer_to(account, refund_price, "plan upgrade refund");
       }
 
       // Process subscription
@@ -104,20 +106,19 @@ namespace proton
       auto itr = idx.begin();
       auto oitr = itr;
 
-      // itr++;
-      // eosio::check(false, "Account: " + itr->account.to_string() + 
-      //                     " A: " + std::to_string(itr == idx.end()) + 
-      //                     " B: " + std::to_string(eosio::current_time_point().sec_since_epoch() < itr->end_time()) +
-      //                     " Start Time: " + std::to_string(itr->start_time.sec_since_epoch()) +
-      //                     " End Time: " + std::to_string(itr->end_time()) +
-      //                     " Current Time: " + std::to_string(eosio::current_time_point().sec_since_epoch())
+      // check(false, "Account: " + itr->account.to_string() + 
+      //                     " A: " + to_string(itr == idx.end()) + 
+      //                     " B: " + to_string(current_time_point().sec_since_epoch() < itr->end_time()) +
+      //                     " Start Time: " + to_string(itr->start_time.sec_since_epoch()) +
+      //                     " End Time: " + to_string(itr->end_time()) +
+      //                     " Current Time: " + to_string(current_time_point().sec_since_epoch())
       //             );
 
       for (uint16_t i = 0; i < max; ++i) {
         itr = oitr;
-        if (itr == idx.end() || eosio::current_time_point().sec_since_epoch() < itr->end_time()) break;
+        if (itr == idx.end() || current_time_point().sec_since_epoch() < itr->end_time()) break;
         end_subscription(*itr);
-        oitr = std::next(itr);
+        oitr = next(itr);
         idx.erase(itr);
       }
     }
@@ -125,12 +126,10 @@ namespace proton
 
   void atom::end_subscription(const Subscription& subscription) {
     // Unstake all amounts from an account
-    // if (subscription.cpu_credits.amount > 0 || subscription.net_credits.amount > 0) {
-      auto delband = del_bandwidth_table(SYSTEM_CONTRACT, get_self().value);
-      auto staked = delband.require_find(subscription.account.value);
+    auto delband = del_bandwidth_table(SYSTEM_CONTRACT, get_self().value);
+    auto staked = delband.require_find(subscription.account.value);
 
-      undelegatebw_action udb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
-      udb_action.send(get_self(), subscription.account, staked->net_weight, staked->cpu_weight);
-    // }
+    undelegatebw_action udb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
+    udb_action.send(get_self(), subscription.account, staked->net_weight, staked->cpu_weight);
   }
 } // namepsace contract

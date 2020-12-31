@@ -211,42 +211,42 @@
         {
             "name": "addplan",
             "type": "addplan",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Add Plan\nsummary: 'Add Plan'\nicon:\n---\n."
         },
         {
             "name": "buyplan",
             "type": "buyplan",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Buy Plan\nsummary: 'Buy Plan'\nicon:\n---\n."
         },
         {
             "name": "cleanup",
             "type": "cleanup",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Cleanup\nsummary: 'Cleanup'\nicon:\n---\n."
         },
         {
             "name": "planreceipt",
             "type": "planreceipt",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Plan Receipt\nsummary: 'Plan Receipt'\nicon:\n---\n."
         },
         {
             "name": "process",
             "type": "process",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Process\nsummary: 'Process'\nicon:\n---\n."
         },
         {
             "name": "removeplan",
             "type": "removeplan",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Remove Plan\nsummary: 'Remove Plan'\nicon:\n---\n."
         },
         {
             "name": "updateplan",
             "type": "updateplan",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Update Plan\nsummary: 'Update Plan'\nicon:\n---\n."
         },
         {
             "name": "withdraw",
             "type": "withdraw",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Withdraw\nsummary: 'Withdraw'\nicon:\n---\n."
         }
     ],
     "tables": [
