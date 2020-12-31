@@ -1,7 +1,7 @@
 #include <atom/atom.hpp>
 
 namespace proton {
-  void atom::add_balance (const eosio::name& account, const eosio::extended_asset& delta) {
+  void atom::add_balance (const name& account, const extended_asset& delta) {
     auto acc_itr = _accounts.find(account.value);
     auto ext_sym = delta.get_extended_symbol();
 
@@ -31,16 +31,16 @@ namespace proton {
     }
   }
 
-  void atom::substract_balance (const eosio::name& account, const eosio::extended_asset& delta) {
+  void atom::substract_balance (const name& account, const extended_asset& delta) {
     // Find account
     auto acc_itr = _accounts.require_find(account.value, "account does not exist");
     auto ext_sym = delta.get_extended_symbol();
-    eosio::check(delta.quantity.amount > 0, "balance to substract must be positive");
+    check(delta.quantity.amount > 0, "balance to substract must be positive");
 
     // Reduce balance
     _accounts.modify(acc_itr, get_self(), [&](auto& a) {
       // Balance does not exist
-      eosio::check(a.balances.find(ext_sym) != a.balances.end(), "user does not own this token");
+      check(a.balances.find(ext_sym) != a.balances.end(), "user " + account.to_string() + " does not own token " + ext_sym.get_contract().to_string() + " " + ext_sym.get_symbol().code().to_string());
 
       // Excess balance
       if (a.balances[ext_sym].amount > delta.quantity.amount)
@@ -55,7 +55,9 @@ namespace proton {
       // Insufficient balance
       else
       {
-        eosio::check(false, "user token balance too low");
+        check(false, "user token balance too low. Balance is " + 
+                      a.balances[ext_sym].to_string() + " (" + ext_sym.get_contract().to_string() + ") but you need " +
+                      delta.quantity.to_string() + " (" + delta.contract.to_string() + ")");
       }
     });
 
