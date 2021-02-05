@@ -118,6 +118,7 @@ export default {
     return {
       bots: [],
       selectedBot: undefined,
+      feedIndex: 1,
       CHAIN
     }
   },
@@ -140,16 +141,21 @@ export default {
       })
 
       if (rows && rows.length) {
-        this.bots = await Promise.all(rows.slice(0, MAX_BOTS).map(async (bot, i) => {
-          if (!this.selectedBot) {
-            const account = await rpc.get_account(bot.account)
-            bot.acc = account
-          } else {
-            bot.acc = this.bots[i].acc
-          }
+        const promises = rows
+          .filter(row => row.feed_index === this.feedIndex)
+          .slice(0, MAX_BOTS)
+          .map(async (bot, i) => {
+            if (!this.selectedBot) {
+              const account = await rpc.get_account(bot.account)
+              bot.acc = account
+            } else {
+              bot.acc = this.bots[i].acc
+            }
 
-          return bot
-        }))
+            return bot
+          })
+
+        this.bots = await Promise.all(promises)
 
         if (!this.selectedBot) {
           this.selectedBot = this.bots[0]
