@@ -26,7 +26,7 @@ const actions = {
     }
   },
 
-  async logout ({ commit, dispatch }) {
+  async logout ({ commit }) {
     await userApi.logout()
     commit('resetUser')
   },
@@ -44,7 +44,7 @@ const actions = {
       console.log(e)
       console.log(fieldError || e.message || e.toString() || e)
 
-      return e
+      throw e
     }
   }
 }

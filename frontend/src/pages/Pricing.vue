@@ -1,6 +1,8 @@
 <template>
   <div>
     <PricingTables/>
+    <BuyRam/>
+    <CreateAccount/>
     <FeatureList/>
     <!-- <Testimonials/> -->
     <Faq/>
@@ -11,14 +13,16 @@
 import Faq from '@/components/faq'
 import PricingTables from '@/components/pricingTables'
 import FeatureList from '@/components/featureList'
-// import Testimonials from '@/components/testimonials'
+import BuyRam from '@/components/buyRam'
+import CreateAccount from '@/components/createAccount'
 
 export default {
   components: {
     Faq,
     PricingTables,
-    FeatureList
-    // Testimonials
+    FeatureList,
+    BuyRam,
+    CreateAccount
   }
 }
 </script>

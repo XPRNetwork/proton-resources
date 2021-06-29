@@ -1,5 +1,5 @@
-import { ConnectWallet } from '@protonprotocol/proton-web-sdk'
-import { Api, JsonRpc } from '@protonprotocol/protonjs'
+import { ConnectWallet } from '@proton/web-sdk'
+import { Api, JsonRpc } from '@proton/js'
 import { requestAccount, endpoints, appName } from '@/constants'
 
 export const rpc = new JsonRpc(endpoints)
@@ -42,8 +42,12 @@ export const transact = async (actions, broadcast) => {
 }
 
 export const logout = async () => {
-  if (wallet && wallet.link && wallet.session) {
-    await wallet.link.removeSession(requestAccount, wallet.session.auth)
+  try {
+    if (wallet && wallet.link && wallet.session) {
+      await wallet.link.removeSession(requestAccount, wallet.session.auth)
+    }
+  } catch (e) {
+    console.log('Cannot log out due to', e)
   }
 }
 
