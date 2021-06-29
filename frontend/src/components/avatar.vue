@@ -30,32 +30,32 @@
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
           </svg>
         </button>
-      </div>
 
-      <transition
-        enter-active-class="transition ease-out duration-100 transform"
-        enter-class="opacity-0 scale-95"
-        enter-to-class="opacity-100 scale-100"
-        leave-active-class="transition ease-in duration-75 transform"
-        leave-class="opacity-100 scale-100"
-        leave-to-class="opacity-0 scale-95"
-      >
-        <div
-          class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="user-menu"
-          v-if="active"
+        <transition
+          enter-active-class="transition ease-out duration-100 transform"
+          enter-class="opacity-0 scale-95"
+          enter-to-class="opacity-100 scale-100"
+          leave-active-class="transition ease-in duration-75 transform"
+          leave-class="opacity-100 scale-100"
+          leave-to-class="opacity-0 scale-95"
         >
-          <span
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-            role="menuitem"
-            @click="logout"
+          <div
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="user-menu"
+            v-if="active"
           >
-            Logout
-          </span>
-        </div>
-      </transition>
+            <span
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+              role="menuitem"
+              @click="logout"
+            >
+              Logout
+            </span>
+          </div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -98,9 +98,14 @@ export default {
 
   methods: {
     ...mapActions({
-      login: 'user/login',
-      logout: 'user/logout'
-    })
+      login: 'user/login'
+    }),
+
+    async logout () {
+      await this.$store.dispatch('user/logout')
+      this.active = false
+      console.log('isActive', this.active)
+    }
   }
 }
 </script>

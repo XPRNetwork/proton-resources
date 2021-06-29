@@ -18,5 +18,6 @@
   "bugs": {
     "url": "https://github.com/ProtonProtocol/proton-resources/issues"
   },
-  "homepage": "https://github.com/ProtonProtocol/proton-resources#readme"
+  "homepage": "https://github.com/ProtonProtocol/proton-resources#readme",
+  "dependencies": {}
 }

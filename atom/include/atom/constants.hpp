@@ -5,7 +5,7 @@ using namespace std;
 
 #define SYSTEM_CONTRACT name("eosio")
 #define SYSTEM_TOKEN_CONTRACT name("eosio.token")
-#define FEE_ACCOUNT name("a.resources")
+#define FEE_ACCOUNT name("eosio.ramfee")
 
 namespace proton
 {

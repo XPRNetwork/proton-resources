@@ -78,7 +78,7 @@ namespace proton
       t.account     = account;
       t.cpu_credits = plan_itr->cpu_credits;
       t.net_credits = plan_itr->net_credits;
-      t.ram_bytes   = plan_itr->ram_bytes;
+      t.ram_bytes   = 0;
       t.price       = adjusted_price;
       t.subscription_hours  = plan_itr->plan_hours * plan_quantity;
 
@@ -92,12 +92,6 @@ namespace proton
       delegatebw_action db_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
       db_action.send(get_self(), account, plan_itr->net_credits, plan_itr->cpu_credits, false);
     }
-
-    // Delegate RAM
-    if (plan_itr->ram_bytes > 0) {
-      buyrambytes_action brb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
-      brb_action.send(get_self(), account, plan_itr->ram_bytes);
-    }
   }
 
   void atom::process (const uint64_t& max) {
@@ -105,14 +99,6 @@ namespace proton
       auto idx = _subscriptions.get_index<"bytime"_n>();
       auto itr = idx.begin();
       auto oitr = itr;
-
-      // check(false, "Account: " + itr->account.to_string() + 
-      //                     " A: " + to_string(itr == idx.end()) + 
-      //                     " B: " + to_string(current_time_point().sec_since_epoch() < itr->end_time()) +
-      //                     " Start Time: " + to_string(itr->start_time.sec_since_epoch()) +
-      //                     " End Time: " + to_string(itr->end_time()) +
-      //                     " Current Time: " + to_string(current_time_point().sec_since_epoch())
-      //             );
 
       for (uint16_t i = 0; i < max; ++i) {
         itr = oitr;

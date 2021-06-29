@@ -33,7 +33,7 @@ export default {
       faqs: [
         {
           question: 'Can I buy RAM independantly?',
-          answer: 'Yes, we do offer extra RAM independantly if you are deploying a RAM-intensive application. Prices start at $1 per MB.'
+          answer: 'Yes, you can buy up to 3MB of RAM.'
         },
         {
           question: 'What is the more scarce resource: NET or CPU?',
