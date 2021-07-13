@@ -17,7 +17,7 @@
             Storage
           </router-link>
           <router-link to="/create-account" class="text-base font-medium text-gray-500 hover:text-purple-900">
-            Account
+            <span class="hidden sm:inline-block">Create</span> Account
           </router-link>
           <router-link to="/bots" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
             Bots
