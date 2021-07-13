@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Pricing from '@/pages/Pricing'
+import Resources from '@/pages/Resources'
+import Storage from '@/pages/Storage'
+import Account from '@/pages/Account'
 import Bots from '@/pages/Bots'
 
 Vue.use(Router)
@@ -10,8 +12,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Pricing',
-      component: Pricing
+      name: 'Resources',
+      component: Resources
+    },
+    {
+      path: '/storage',
+      name: 'Storage',
+      component: Storage
+    },
+    {
+      path: '/create-account',
+      name: 'Account',
+      component: Account
     },
     {
       path: '/bots',
