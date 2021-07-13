@@ -5,7 +5,7 @@
       v-if="!actor"
       class="cursor-pointer whitespace-nowrap bg-purple-100 border border-transparent rounded-md py-2 px-4 inline-flex items-center justify-center text-base font-medium text-purple-600 hover:bg-purple-200"
     >
-      Sign in
+      Login
     </a>
 
     <div class="relative" v-else>
@@ -17,12 +17,12 @@
           @click="active = !active"
         >
           <img
-            class="h-8 w-8 rounded-full"
+            class="hidden sm:block h-8 w-8 rounded-full"
             :src="avatar"
             alt="Profile Photo"
           />
 
-          <span class="ml-3 text-gray-700 text-sm font-medium lg:block">
+          <span class="ml-1 sm:ml-3 text-gray-700 text-sm font-medium lg:block">
             {{ actor }}
           </span>
 

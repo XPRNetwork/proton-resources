@@ -10,7 +10,7 @@
         </p>
       </div>
 
-      <div class="flex justify-center mt-6 px-4 py-5 sm:p-6">
+      <div class="flex justify-center mt-6 sm:p-6">
         <div class="max-w-xl mt-5 bg-white shadow sm:rounded-lg px-6 py-5 sm:flex sm:items-start sm:justify-between">
           <h4 class="sr-only">RAM</h4>
           <div class="sm:flex sm:items-start">

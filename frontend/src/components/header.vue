@@ -2,18 +2,24 @@
   <div class="relative bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex justify-between items-center border-b border-gray-200 py-6 md:justify-start md:space-x-10">
-        <div class="flex justify-start">
+        <div class="hidden sm:block flex justify-start">
           <router-link to="/">
             <span class="sr-only">Proton</span>
             <img class="w-auto h-8 sm:h-10" src="@/assets/logo.svg" alt="">
           </router-link>
         </div>
 
-        <nav class="flex space-x-10 justify-center">
+        <nav class="flex space-x-4 sm:space-x-10 justify-center pr-2">
           <router-link to="/" class="text-base font-medium text-gray-500 hover:text-purple-900">
-            Pricing
+            Resources
           </router-link>
-          <router-link to="/bots" class="text-base font-medium text-gray-500 hover:text-purple-900">
+          <router-link to="/storage" class="text-base font-medium text-gray-500 hover:text-purple-900">
+            Storage
+          </router-link>
+          <router-link to="/create-account" class="text-base font-medium text-gray-500 hover:text-purple-900">
+            Account
+          </router-link>
+          <router-link to="/bots" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
             Bots
           </router-link>
         </nav>
