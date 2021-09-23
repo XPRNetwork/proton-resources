@@ -1,6 +1,6 @@
-import { ConnectWallet } from '@proton/web-sdk'
+import { ConnectWallet } from '@bloks/web-sdk'
 import { Api, JsonRpc } from '@proton/js'
-import { requestAccount, endpoints, appName } from '@/constants'
+import { requestAccount, endpoints, appName, chainId } from '@/constants'
 
 export const rpc = new JsonRpc(endpoints)
 export const api = new Api({ rpc })
@@ -14,6 +14,8 @@ export const login = async ({ restoreSession } = { restoreSession: false }) => {
   const connectedWallet = await ConnectWallet({
     linkOptions: {
       rpc,
+      endpoints,
+      chainId,
       restoreSession
     },
     transportOptions: {
@@ -44,7 +46,7 @@ export const transact = async (actions, broadcast) => {
 export const logout = async () => {
   try {
     if (wallet && wallet.link && wallet.session) {
-      await wallet.link.removeSession(requestAccount, wallet.session.auth)
+      await wallet.link.removeSession(requestAccount, wallet.session.auth, chainId)
     }
   } catch (e) {
     console.log('Cannot log out due to', e)
