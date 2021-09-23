@@ -40,10 +40,11 @@ const actions = {
       const success = await userApi.transact(actions, broadcast)
       return success
     } catch (e) {
-      const fieldError = e.json && e.json.fields && e.json.fields.length && e.json.fields[0].error
+      // eslint-disable-next-line no-extra-boolean-cast
+      const fieldError = e && e.error ? e.error.details[0].message : e.toString()
       console.log(e)
       console.log(fieldError || e.message || e.toString() || e)
-
+      alert(fieldError || e.message || e.toString() || e)
       throw e
     }
   }
