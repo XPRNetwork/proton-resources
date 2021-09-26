@@ -917,10 +917,10 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
-"@bloks/browser-transport@^3.2.1-12":
-  version "3.2.1-12"
-  resolved "https://registry.yarnpkg.com/@bloks/browser-transport/-/browser-transport-3.2.1-12.tgz#469fa49195b4e063bc4654bda4837113ad10959e"
-  integrity sha512-8QMJ2I0c7a5nKxOCgUlYJsnMBzH8QiCuYJFuUjeCCHoZ/NDQXXVkoPM7lmSV8GsosfVFMCtUraVNV0L6pW3yKw==
+"@bloks/browser-transport@^3.2.1-16":
+  version "3.2.1-16"
+  resolved "https://registry.yarnpkg.com/@bloks/browser-transport/-/browser-transport-3.2.1-16.tgz#0ca70a720bf356641e72f1987da7b7b317e0f240"
+  integrity sha512-bwTg+BOfQxo0OaQA06pwxPZTYtqDQKC5IzaoMKpRougp5H0gohg4/x74b8C8caRwVKjADXVQ8A2J5pNuD9aQew==
   dependencies:
     "@bloks/qrcode" "^0.1.0"
     tslib "^2.0.3"
@@ -930,12 +930,12 @@
   resolved "https://registry.yarnpkg.com/@bloks/constants/-/constants-22.0.88.tgz#8af7d3948076c07255c6db79835f9ba0d9b9dc87"
   integrity sha512-+JeFqG8PIEslTy2aK2Xyh6GMA4T4c6ytBqX/2D4GpPmthTUGkPtdwBvIxaRY8B8uY54iKTc4mf+w0BOHFMSFnQ==
 
-"@bloks/link@^3.2.3-15":
-  version "3.2.3-15"
-  resolved "https://registry.yarnpkg.com/@bloks/link/-/link-3.2.3-15.tgz#05857c9d201c44870a752859eb1d4867dc34c3cc"
-  integrity sha512-jIayUReYbipVap8VYp8uq+CC8fXKiupRgWjS8aUROoSYxG3HgdYaM2sff9WCg9ODGU0eVmIKtLzEtx/1sCgHyQ==
+"@bloks/link@^3.2.3-19":
+  version "3.2.3-19"
+  resolved "https://registry.yarnpkg.com/@bloks/link/-/link-3.2.3-19.tgz#35b3448d4b0966b56de727eddc89666dbb8a96cd"
+  integrity sha512-eg3oEX/GeqlhOHTWhvqJbpy+sb9/I88v/z8YiBO4VF5dodPjEmlC709ziXTc7IL1i82T0qQuw/NnZCLQIzzBdg==
   dependencies:
-    "@bloks/signing-request" "^2.2.2-5"
+    "@bloks/signing-request" "^2.2.2-6"
     "@greymass/eosio" "^0.4.7"
     "@jafri/asmcrypto.js" "^2.3.2"
     fetch-ponyfill "^7.1.0"
@@ -960,21 +960,21 @@
   dependencies:
     qrcode "^1.4.4"
 
-"@bloks/signing-request@^2.2.2-5":
-  version "2.2.2-5"
-  resolved "https://registry.yarnpkg.com/@bloks/signing-request/-/signing-request-2.2.2-5.tgz#38efaa85bfc3dc5cab8d9a1fbdd173520f3c1e65"
-  integrity sha512-GEtHpYmEIDkCTtBWwyuVcFYu5+z51OqgVTZzeULTvlstTk4ob8l73oG9qN4y17qMAewXEScWZGRTtYbUO3PNSQ==
+"@bloks/signing-request@^2.2.2-6":
+  version "2.2.2-6"
+  resolved "https://registry.yarnpkg.com/@bloks/signing-request/-/signing-request-2.2.2-6.tgz#18d61f000fcda58da11bf66fd773d725325f6f34"
+  integrity sha512-//xEHDyQEg0mXvnTzim+QMm7DthQRmxxquXdywMxl1G4u9sq/Omuzff+3WVQUuOAaJzYTOrmkZ0KxgZs6H3YRg==
   dependencies:
     "@greymass/eosio" "^0.4.7"
     tslib "^2.0.3"
 
-"@bloks/web-sdk@^2.7.23-42":
-  version "2.7.23-42"
-  resolved "https://registry.yarnpkg.com/@bloks/web-sdk/-/web-sdk-2.7.23-42.tgz#3d630820c225bacd118653f03a7a81baa4bc2af1"
-  integrity sha512-6fEe9jjtCNbLL716IzjDpe+JcVhBHJiQOQAB5UlX5t6jUwJClDnjEHgDWQo25xjn2fkm8wdhi/GFMu2z5WDZIQ==
+"@bloks/web-sdk@^2.7.23-51":
+  version "2.7.23-51"
+  resolved "https://registry.yarnpkg.com/@bloks/web-sdk/-/web-sdk-2.7.23-51.tgz#106001d516a3f763c118af90d7a9351a36e54ee6"
+  integrity sha512-QqYujhoa6+2zIGhcAFQT7c7B6EwnwdGbGh9hOGsaiYFen5N6eJ5HxgJRjkKYYJyhGFZ7qneUbQCLLwOYHMoEPA==
   dependencies:
-    "@bloks/browser-transport" "^3.2.1-12"
-    "@bloks/link" "^3.2.3-15"
+    "@bloks/browser-transport" "^3.2.1-16"
+    "@bloks/link" "^3.2.3-19"
     "@bloks/provider-axios" "^2.2.2-3"
 
 "@cnakazawa/watch@^1.0.3":
