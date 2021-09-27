@@ -15,7 +15,7 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs"
   },
   "dependencies": {
-    "@bloks/web-sdk": "^2.7.23-51",
+    "@bloks/web-sdk": "^2.7.23-52",
     "@proton/js": "^22.0.86",
     "@proton/web-sdk": "^2.7.23",
     "@tailwindcss/forms": "^0.2.1",
