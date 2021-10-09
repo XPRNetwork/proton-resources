@@ -120,10 +120,10 @@ namespace proton
   }
 
   void atom::newaccount (
-    name      creator,
-    name      name,
-    authority owner,
-    authority active
+    const name&      creator,
+    const name&      name,
+    const authority& owner,
+    const authority& active
   ) {
     require_auth(creator);
 
@@ -135,7 +135,7 @@ namespace proton
     buyrambytes_action buyram_bytes_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
     buyram_bytes_action.send(get_self(), name, 12000);
     
-    newaccres_action newacc_res_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
+    newaccres_action newacc_res_action( EOSIO_PROTON_CONTRACT, {get_self(), "active"_n} );
     newacc_res_action.send(name);
   }
 } // namepsace contract
