@@ -1,11 +1,8 @@
 #pragma once
 
-using namespace eosio;
-using namespace std;
-
-#define SYSTEM_CONTRACT name("eosio")
-#define SYSTEM_TOKEN_CONTRACT name("eosio.token")
-#define FEE_ACCOUNT name("eosio.ramfee")
+#define SYSTEM_CONTRACT eosio::name("eosio")
+#define SYSTEM_TOKEN_CONTRACT eosio::name("eosio.token")
+#define FEE_ACCOUNT eosio::name("eosio.ramfee")
 
 namespace proton
 {

@@ -98,6 +98,28 @@
             ]
         },
         {
+            "name": "authority",
+            "base": "",
+            "fields": [
+                {
+                    "name": "threshold",
+                    "type": "uint32"
+                },
+                {
+                    "name": "keys",
+                    "type": "key_weight[]"
+                },
+                {
+                    "name": "accounts",
+                    "type": "permission_level_weight[]"
+                },
+                {
+                    "name": "waits",
+                    "type": "wait_weight[]"
+                }
+            ]
+        },
+        {
             "name": "buyplan",
             "base": "",
             "fields": [
@@ -135,6 +157,42 @@
             ]
         },
         {
+            "name": "key_weight",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "public_key"
+                },
+                {
+                    "name": "weight",
+                    "type": "uint16"
+                }
+            ]
+        },
+        {
+            "name": "newaccount",
+            "base": "",
+            "fields": [
+                {
+                    "name": "creator",
+                    "type": "name"
+                },
+                {
+                    "name": "name",
+                    "type": "name"
+                },
+                {
+                    "name": "owner",
+                    "type": "authority"
+                },
+                {
+                    "name": "active",
+                    "type": "authority"
+                }
+            ]
+        },
+        {
             "name": "pair_extended_symbol_asset",
             "base": "",
             "fields": [
@@ -145,6 +203,34 @@
                 {
                     "name": "value",
                     "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "permission_level",
+            "base": "",
+            "fields": [
+                {
+                    "name": "actor",
+                    "type": "name"
+                },
+                {
+                    "name": "permission",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "permission_level_weight",
+            "base": "",
+            "fields": [
+                {
+                    "name": "permission",
+                    "type": "permission_level"
+                },
+                {
+                    "name": "weight",
+                    "type": "uint16"
                 }
             ]
         },
@@ -193,6 +279,20 @@
             ]
         },
         {
+            "name": "wait_weight",
+            "base": "",
+            "fields": [
+                {
+                    "name": "wait_sec",
+                    "type": "uint32"
+                },
+                {
+                    "name": "weight",
+                    "type": "uint16"
+                }
+            ]
+        },
+        {
             "name": "withdraw",
             "base": "",
             "fields": [
@@ -222,6 +322,11 @@
             "name": "cleanup",
             "type": "cleanup",
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Cleanup\nsummary: 'Cleanup'\nicon:\n---\n."
+        },
+        {
+            "name": "newaccount",
+            "type": "newaccount",
+            "ricardian_contract": ""
         },
         {
             "name": "planreceipt",

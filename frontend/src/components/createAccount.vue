@@ -171,52 +171,70 @@ export default {
         return
       }
 
-      const actions = [
-        {
-          account: 'eosio',
-          name: 'newaccount',
-          data: {
-            creator: creator,
-            name: newAccountName,
-            owner: {
-              threshold: 1,
-              keys: [{
-                key: newAccountOwnerKey,
-                weight: 1
-              }],
-              accounts: [],
-              waits: []
-            },
-            active: {
-              threshold: 1,
-              keys: [{
-                key: newAccountOwnerKey,
-                weight: 1
-              }],
-              accounts: [],
-              waits: []
+      const newAccountData = {
+        creator: creator,
+        name: newAccountName,
+        owner: {
+          threshold: 1,
+          keys: [{
+            key: newAccountOwnerKey,
+            weight: 1
+          }],
+          accounts: [],
+          waits: []
+        },
+        active: {
+          threshold: 1,
+          keys: [{
+            key: newAccountOwnerKey,
+            weight: 1
+          }],
+          accounts: [],
+          waits: []
+        }
+      }
+
+      const actions = newAccountName.indexOf('.xpr') !== -1
+        ? [
+          {
+            account: 'eosio.token',
+            name: 'transfer',
+            data: {
+              from: creator,
+              to: 'xpr',
+              quantity: '50.0000 XPR',
+              memo: ''
+            }
+          },
+          {
+            account: 'xpr',
+            name: 'newaccount',
+            data: newAccountData
+          }
+        ]
+        : [
+          {
+            account: 'eosio',
+            name: 'newaccount',
+            data: newAccountData
+          },
+          {
+            account: 'eosio',
+            name: 'buyrambytes',
+            data: {
+              payer: creator,
+              receiver: newAccountName,
+              bytes: ramPerAccount
+            }
+          },
+          {
+            account: 'eosio.proton',
+            name: 'newaccres',
+            data: {
+              account: newAccountName
             }
           }
-        },
-        {
-          account: 'eosio',
-          name: 'buyrambytes',
-          data: {
-            payer: creator,
-            receiver: newAccountName,
-            bytes: ramPerAccount
-          }
-        },
-        {
-          account: 'eosio.proton',
-          name: 'newaccres',
-          data: {
-            account: newAccountName
-          }
-        }
-      ]
-
-      console.log(actions)
+        ]
 
       await this.transact({ actions })
       setTimeout(() => this.fetchBalance(), 1500)

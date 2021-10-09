@@ -118,4 +118,24 @@ namespace proton
     undelegatebw_action udb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
     udb_action.send(get_self(), subscription.account, staked->net_weight, staked->cpu_weight);
   }
+
+  void atom::newaccount (
+    name      creator,
+    name      name,
+    authority owner,
+    authority active
+  ) {
+    require_auth(creator);
+
+    substract_balance(creator, eosio::extended_asset(eosio::asset(500000, eosio::symbol("XPR", 4)), SYSTEM_TOKEN_CONTRACT));
+
+    newaccount_action new_acct_action( SYSTEM_CONTRACT, {name.suffix(), "active"_n} );
+    new_acct_action.send(get_self(), name, owner, active);
+
+    buyrambytes_action buyram_bytes_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
+    buyram_bytes_action.send(get_self(), name, 12000);
+    
+    newaccres_action newacc_res_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
+    newacc_res_action.send(name);
+  }
 } // namepsace contract
