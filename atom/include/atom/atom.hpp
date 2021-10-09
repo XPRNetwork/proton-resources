@@ -9,12 +9,15 @@
 #include <eosio/crypto.hpp>
 #include <eosio/transaction.hpp>
 
+
 // Local
+#include "authority.hpp"
 #include "constants.hpp"
 #include "tables.hpp"
 
 using namespace eosio;
 using namespace std;
+
 
 namespace proton {
   CONTRACT atom : public contract {
@@ -42,6 +45,11 @@ namespace proton {
     ACTION withdraw   ( const name& account,
                         const extended_asset& balance );
     ACTION process    ( const uint64_t& max                 );
+
+    ACTION newaccount ( name      creator,
+                        name      name,
+                        authority owner,
+                        authority active);
 
     ACTION cleanup () {
       require_auth(get_self());
@@ -84,6 +92,11 @@ namespace proton {
     void buyrambytes  ( const name& payer,
                         const name& receiver,
                         uint32_t bytes );
+    void newaccres    (name account);
+    void newaccountsys  ( name      creator,
+                          name      name,
+                          ignore<authority> owner,
+                          ignore<authority> active);
 
     // Action wrappers
     using withdraw_action     = action_wrapper<"withdraw"_n,     &atom::withdraw>;
@@ -92,6 +105,8 @@ namespace proton {
     using undelegatebw_action = action_wrapper<"undelegatebw"_n, &atom::undelegatebw>;
     using buyrambytes_action  = action_wrapper<"buyrambytes"_n,  &atom::buyrambytes>;
     using planreceipt_action  = action_wrapper<"planreceipt"_n,  &atom::planreceipt>;
+    using newaccount_action   = action_wrapper<"newaccount"_n,   &atom::newaccountsys>;
+    using newaccres_action    = action_wrapper<"newaccres"_n,    &atom::newaccres>;
 
     // Initialize tables from tables.hpp
     account_table _accounts;

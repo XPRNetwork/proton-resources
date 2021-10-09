@@ -56,25 +56,3 @@ ExternalProject_Add(
    INSTALL_COMMAND ""
    BUILD_ALWAYS 1
 )
-
-string(REPLACE ";" "|" TEST_PREFIX_PATH "${CMAKE_PREFIX_PATH}")
-string(REPLACE ";" "|" TEST_FRAMEWORK_PATH "${CMAKE_FRAMEWORK_PATH}")
-string(REPLACE ";" "|" TEST_MODULE_PATH "${CMAKE_MODULE_PATH}")
-
-set(BUILD_TESTS FALSE CACHE BOOL "Build unit tests")
-
-if(BUILD_TESTS)
-   message(STATUS "Building unit tests.")
-   ExternalProject_Add(
-     atom_unit_tests
-     LIST_SEPARATOR | # Use the alternate list separator
-     CMAKE_ARGS -DCMAKE_BUILD_TYPE=${TEST_BUILD_TYPE} -DCMAKE_PREFIX_PATH=${TEST_PREFIX_PATH} -DCMAKE_FRAMEWORK_PATH=${TEST_FRAMEWORK_PATH} -DCMAKE_MODULE_PATH=${TEST_MODULE_PATH} -DEOSIO_ROOT=${EOSIO_ROOT} -DLLVM_DIR=${LLVM_DIR} -DBOOST_ROOT=${BOOST_ROOT}
-     SOURCE_DIR ${CMAKE_SOURCE_DIR}/c++_tests
-     BINARY_DIR ${CMAKE_BINARY_DIR}/c++_tests
-     BUILD_ALWAYS 1
-     TEST_COMMAND   ""
-     INSTALL_COMMAND ""
-   )
-else()
-   message(STATUS "Unit tests will not be built. To build unit tests, set BUILD_TESTS to true.")
-endif()
