@@ -24,7 +24,7 @@
             </div>
             <div class="mt-1 pr-16 text-sm text-gray-600 sm:flex sm:items-center">
               <div>
-                Note: Each new account requires {{ costOfAccountInXpr.toFixed(2) }} XPR (12,000 bytes) to create
+                Note: Non-vanity names cost {{ costOfAccountInXpr.toFixed(2) }} XPR to create. Vanity (.xpr) names cost 50 XPR to create. 
               </div>
             </div>
 
