@@ -2,6 +2,7 @@
 
 #define SYSTEM_CONTRACT eosio::name("eosio")
 #define SYSTEM_TOKEN_CONTRACT eosio::name("eosio.token")
+#define EOSIO_PROTON_CONTRACT eosio::name("eosio.proton")
 #define FEE_ACCOUNT eosio::name("eosio.ramfee")
 
 namespace proton

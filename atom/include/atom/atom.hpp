@@ -46,10 +46,10 @@ namespace proton {
                         const extended_asset& balance );
     ACTION process    ( const uint64_t& max                 );
 
-    ACTION newaccount ( name      creator,
-                        name      name,
-                        authority owner,
-                        authority active);
+    ACTION newaccount ( const name&      creator,
+                        const name&      name,
+                        const authority& owner,
+                        const authority& active);
 
     ACTION cleanup () {
       require_auth(get_self());
