@@ -166,6 +166,11 @@ export default {
         return
       }
 
+      if (!RegExp('^[a-zA-Z12345.]+$').test(newAccountName)) {
+        this.accountError = 'Account names can only contain the characters a-z and number 1-5.'
+        return
+      }
+
       if (!newAccountOwnerKey) {
         this.accountError = 'Please enter a new account key'
         return
