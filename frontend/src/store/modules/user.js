@@ -47,7 +47,7 @@ const actions = {
 
       console.log(e)
       console.log(error)
-      
+
       alert(error)
       throw error
     }
