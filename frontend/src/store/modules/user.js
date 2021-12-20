@@ -41,11 +41,15 @@ const actions = {
       return success
     } catch (e) {
       // eslint-disable-next-line no-extra-boolean-cast
-      const fieldError = e && e.error ? e.error.details[0].message : e.toString()
+      const detailsError = e.error && e.error.details && e.error.details.length && e.error.details[0].message
+      const fieldError = e.json && e.json.fields && e.json.fields.length && e.json.fields[0].error
+      const error = detailsError || fieldError || e.message || e.toString() || e
+
       console.log(e)
-      console.log(fieldError || e.message || e.toString() || e)
-      alert(fieldError || e.message || e.toString() || e)
-      throw e
+      console.log(error)
+      
+      alert(error)
+      throw error
     }
   }
 }

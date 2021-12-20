@@ -24,7 +24,7 @@
             </div>
             <div class="mt-1 pr-16 text-sm text-gray-600 sm:flex sm:items-center">
               <div>
-                Note: Non-vanity names cost {{ costOfAccountInXpr.toFixed(2) }} XPR to create. Vanity (.xpr) names cost 50 XPR to create. 
+                Note: Non-vanity names cost {{ costOfAccountInXpr.toFixed(2) }} XPR to create. Vanity (.xpr, .btc, etc) names cost 50 XPR to create.
               </div>
             </div>
 
@@ -194,20 +194,21 @@ export default {
         }
       }
 
-      const actions = newAccountName.indexOf('.xpr') !== -1
+      const suffix = newAccountName.indexOf('.') !== -1 && newAccountName.split('.')[1]
+      const actions = suffix
         ? [
           {
             account: 'eosio.token',
             name: 'transfer',
             data: {
               from: creator,
-              to: 'xpr',
+              to: suffix,
               quantity: '50.0000 XPR',
               memo: ''
             }
           },
           {
-            account: 'xpr',
+            account: suffix,
             name: 'newaccount',
             data: newAccountData
           }
