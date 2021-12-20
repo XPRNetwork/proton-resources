@@ -1,4 +1,4 @@
-import { ConnectWallet } from '@bloks/web-sdk'
+import { ConnectWallet } from '@proton/web-sdk'
 import { Api, JsonRpc } from '@proton/js'
 import { requestAccount, endpoints, appName, chainId } from '@/constants'
 
