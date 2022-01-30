@@ -166,6 +166,11 @@ export default {
         return
       }
 
+      if (newAccountName.length > 12) {
+        this.accountError = 'Account names can be maximum 12 characters + numbers long'
+        return
+      }
+
       if (!RegExp('^[a-zA-Z12345.]+$').test(newAccountName)) {
         this.accountError = 'Account names can only contain the characters a-z and number 1-5.'
         return
