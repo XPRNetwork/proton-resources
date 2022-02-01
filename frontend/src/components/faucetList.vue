@@ -6,7 +6,8 @@
           Faucets
         </h1>
         <p class="mt-5 text-xl text-gray-500 sm:text-center">
-          Free faucets on Proton Chain
+          Free faucets on Proton Chain. <br/>
+          For full list of tokens, contracts and precisions, check <a href="https://protonscan.io/tokens" target="_blank" class="text-purple-600">ProtonScan</a>
         </p>
       </div>
 
