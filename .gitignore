@@ -54,3 +54,7 @@ _deps
 *.vscode/*
 
 TODO
+
+.vscode
+.netlify
+*-prefix

@@ -46,9 +46,22 @@ else()
 endif()
 
 ExternalProject_Add(
-   atom
-   SOURCE_DIR ${CMAKE_SOURCE_DIR}/atom
-   BINARY_DIR ${CMAKE_BINARY_DIR}/atom
+   resources
+   SOURCE_DIR ${CMAKE_SOURCE_DIR}/resources
+   BINARY_DIR ${CMAKE_BINARY_DIR}/resources
+   CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${EOSIO_CDT_ROOT}/lib/cmake/eosio.cdt/EosioWasmToolchain.cmake
+   UPDATE_COMMAND ""
+   PATCH_COMMAND ""
+   TEST_COMMAND ""
+   INSTALL_COMMAND ""
+   BUILD_ALWAYS 1
+)
+
+
+ExternalProject_Add(
+   faucet
+   SOURCE_DIR ${CMAKE_SOURCE_DIR}/faucet
+   BINARY_DIR ${CMAKE_BINARY_DIR}/faucet
    CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${EOSIO_CDT_ROOT}/lib/cmake/eosio.cdt/EosioWasmToolchain.cmake
    UPDATE_COMMAND ""
    PATCH_COMMAND ""
