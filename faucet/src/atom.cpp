@@ -107,13 +107,13 @@ namespace proton
     auto accountsIt = _accounts.find(account.value);
 
     if (accountsIt == _accounts.end()) {
-      _accounts.emplace(account, [&](auto& a) {
+      _accounts.emplace(get_self(), [&](auto& a) {
         a.account = account;
         a.nextExpiry = newExpiry;
         a.expiryByProgram = {{programsIt->index, newExpiry}};
       });
     } else {
-      _accounts.modify(accountsIt, account, [&](auto& a) {
+      _accounts.modify(accountsIt, get_self(), [&](auto& a) {
         // Check if claimed before, and if so, current time past old expiry
         auto oldExpiry = a.expiryByProgram.find(programsIt->index);
         if (oldExpiry != a.expiryByProgram.end()) {
@@ -135,6 +135,12 @@ namespace proton
     if (quantity > programsIt->savedToken.quantity) {
       quantity = programsIt->savedToken.quantity;
     }
+    check(quantity.amount > 0, "claim quantity must be positive");
+
+    // Reduce amount
+    _programs.modify(programsIt, eosio::same_payer, [&](auto& p) {
+      p.savedToken.quantity.amount -= quantity.amount;
+    });
 
     // Send to claimer
     atom::transfer_action transfer_act(programsIt->claimToken.contract, {get_self(), name("active")});
