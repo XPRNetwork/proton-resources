@@ -11,10 +11,10 @@
       </div>
 
       <div class="flex justify-center mt-6 sm:p-6">
-        <div class="flex flex-col overflow-x-scroll">
-          <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="flex flex-col overflow-x-scroll overflow-y-hidden">
+          <div class="-my-2 sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <div class="shadow border-b border-gray-200 sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
                   <thead class="bg-gray-50">
                     <tr>
@@ -62,13 +62,14 @@
                         <span v-else-if="account && now < (account.expiryByProgram[faucet.index] || 0)">
                           Claim in {{ parseSeconds(account.expiryByProgram[faucet.index] - now) }}
                         </span>
-                        <span
+                        <button
                           v-else
                           @click="claim(faucet.index)"
-                          class="cursor-pointer"
+                          type="button"
+                          class="cursor-pointer w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
                         >
                           Claim
-                        </span>
+                        </button>
                       </td>
                     </tr>
                   </tbody>
@@ -190,7 +191,10 @@ export default {
       ]
 
       await this.transact({ actions })
-      setTimeout(() => this.fetchAccount(), 1500)
+      setTimeout(() => {
+        this.fetchAccount()
+        this.fetchFaucets()
+      }, 1500)
     }
   },
 

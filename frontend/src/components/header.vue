@@ -22,9 +22,12 @@
           <!-- <router-link to="/bots" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
             Bots
           </router-link> -->
-          <router-link to="/faucet" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
+          <router-link to="/faucet" class="text-base font-medium text-gray-500 hover:text-purple-900">
             Faucet
           </router-link>
+          <a href="https://github.com/ProtonProtocol/proton-resources" target="_blank" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
+            Github
+          </a>
         </nav>
 
         <div class="flex items-center justify-end space-x-8 md:flex-1 lg:w-0">
