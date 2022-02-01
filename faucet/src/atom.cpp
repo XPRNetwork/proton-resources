@@ -12,6 +12,7 @@ namespace proton
 
     // Params validation
     check(claimToken.quantity.is_valid(), "claim symbol is not valid");
+    check(claimToken.quantity.amount > 0, "claim amount must be positive");
     check(duration >= 0 && duration < MAX_UINT32_T, "duration must be positive");
 
     // Insert
@@ -38,6 +39,7 @@ namespace proton
 
     // Params validation
     check(claimToken.quantity.is_valid(), "claim symbol is not valid");
+    check(claimToken.quantity.amount > 0, "claim amount must be positive");
     check(claimToken.get_extended_symbol() == programsIt->claimToken.get_extended_symbol(), "claim token must be same as saved one");
     check(duration >= 0 && duration < MAX_UINT32_T, "duration must be positive");
 
@@ -61,8 +63,10 @@ namespace proton
     check(has_auth(get_self()) || has_auth(programsIt->creator), "invalid auth");
 
     // Refund
-    atom::transfer_action transfer_act(programsIt->savedToken.contract, {get_self(), name("active")});
-    transfer_act.send(get_self(), account, programsIt->savedToken.quantity, "claim");
+    if (programsIt->savedToken.quantity.amount > 0) {
+      atom::transfer_action transfer_act(programsIt->savedToken.contract, {get_self(), name("active")});
+      transfer_act.send(get_self(), account, programsIt->savedToken.quantity, "claim");
+    }
 
     // Delete
     _programs.erase(programsIt);
@@ -78,8 +82,8 @@ namespace proton
     check(programsIt != _programs.end(), "program does not exist");
 
     // Validate stake amount
-    check(token.quantity.amount > 0, "must stake positive amount");
     check(token.quantity.is_valid(), "quantity must be valid");
+    check(token.quantity.amount > 0, "must stake positive amount");
     check(token.get_extended_symbol() == programsIt->savedToken.get_extended_symbol(), "extended symbol mismatch");
 
     // Add amount
