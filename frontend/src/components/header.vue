@@ -19,8 +19,11 @@
           <router-link to="/create-account" class="text-base font-medium text-gray-500 hover:text-purple-900">
             <span class="hidden sm:inline-block">Create</span> Account
           </router-link>
-          <router-link to="/bots" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
+          <!-- <router-link to="/bots" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
             Bots
+          </router-link> -->
+          <router-link to="/faucet" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
+            Faucet
           </router-link>
         </nav>
 

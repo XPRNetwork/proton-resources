@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Resources from '@/pages/Resources'
 import Storage from '@/pages/Storage'
+import Faucet from '@/pages/Faucet'
 import Account from '@/pages/Account'
 import Bots from '@/pages/Bots'
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/bots',
       name: 'Bots',
       component: Bots
+    },
+    {
+      path: '/faucet',
+      name: 'Faucet',
+      component: Faucet
     }
   ]
 })
