@@ -100,8 +100,7 @@ namespace proton
     require_auth(account);
 
     // Find program
-    auto programsIt = _programs.find(programId);
-    check(programsIt != _programs.end(), "program does not exist");
+    auto programsIt = _programs.require_find(programId, "program does not exist");
 
     // Calculate expiry
     uint32_t now = current_time_point().sec_since_epoch();
@@ -161,31 +160,34 @@ namespace proton
     auto idx = _accounts.get_index<"bynextexpiry"_n>();
     
     // iterate through descending expiries
-    auto it = idx.lower_bound(now);
-    for (auto i = 0; it != idx.end() && i < maxProcess; it++, i++) {
+    auto account = idx.lower_bound(now);
+    for (auto i = 0; account != idx.end() && i < maxProcess; i++) {
       // If past expiry
-      if (it->nextExpiry < now) {
-        idx.modify(it, eosio::same_payer, [&](auto& a) {
+      if (account->nextExpiry < now) {
+        idx.modify(account, eosio::same_payer, [&](auto& a) {
           // Reset next expiry
           a.nextExpiry = MAX_UINT32_T;
 
           // Loop over all expiries for user
-          for (auto it = a.expiryByProgram.begin(); it != a.expiryByProgram.end(); it++) {
-            // Past = Delete
-            if (it->second < now)
-            {
-              a.expiryByProgram.erase(it->first);
-            }
-            // Future = find earliest
-            else if (it->second < a.nextExpiry) {
-              a.nextExpiry = it->second;
+          std::map<uint64_t, uint32_t>::iterator it2 = a.expiryByProgram.begin();
+          while (it2 != a.expiryByProgram.end()) {
+            if (it2->second < now) {
+              it2 = a.expiryByProgram.erase(it2);
+            } else {
+              if (it2->second < a.nextExpiry) {
+                a.nextExpiry = it2->second;
+              }
+
+              ++it2;
             }
           }
         });
 
         // Delete if no next expiry
-        if (it->nextExpiry == MAX_UINT32_T) {
-          idx.erase(it);
+        if (account->nextExpiry == MAX_UINT32_T) {
+          account = idx.erase(account);
+        } else {
+          account++;
         }
       }
     }
