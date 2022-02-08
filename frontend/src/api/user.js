@@ -1,4 +1,4 @@
-import { ConnectWallet } from '@proton/web-sdk'
+import ProtonSDK from '@proton/web-sdk'
 import { Api, JsonRpc } from '@proton/js'
 import { requestAccount, endpoints, appName, chainId } from '@/constants'
 
@@ -11,7 +11,7 @@ let wallet = {
 }
 
 export const login = async ({ restoreSession } = { restoreSession: false }) => {
-  const connectedWallet = await ConnectWallet({
+  const connectedWallet = await ProtonSDK({
     linkOptions: {
       rpc,
       endpoints,
