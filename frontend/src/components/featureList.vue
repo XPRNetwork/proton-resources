@@ -33,7 +33,7 @@ export default {
       features: [
         {
           title: 'Free Account Creation',
-          description: 'Consumers can create free accounts using the Proton iOS or Android wallets. Or, get an API key and build it into your app.'
+          description: 'Consumers can create free accounts using the Proton iOS or Android wallets.'
         },
         {
           title: 'Free On-Chain KYC',
