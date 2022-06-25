@@ -48,14 +48,6 @@ namespace proton
 
     // Process subscription upgrade if exists
     if (term_itr != _subscriptions.end()) {
-      // Refund any time over 24 hours left
-      float hours_left = ((term_itr->end_time() - current_time_point().sec_since_epoch()) / (float) SECONDS_IN_HOUR) - HOURS_IN_DAY;
-      if (hours_left > 0) {
-        auto refund_price = term_itr->price;
-        refund_price.quantity.amount = (uint64_t)((hours_left / (float)term_itr->subscription_hours) * (float)refund_price.quantity.amount);
-        transfer_to(account, refund_price, "plan upgrade refund");
-      }
-
       // Process subscription
       end_subscription(*term_itr);
 
