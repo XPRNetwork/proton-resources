@@ -231,7 +231,9 @@ export default {
 
       await this.transact({ actions })
 
-      this.getSubscriptionForUser(this.actor)
+      setTimeout(() => {
+        this.getSubscriptionForUser(this.actor)
+      }, 1500)
 
       this.selectedPlan = undefined
     }
