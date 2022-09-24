@@ -105,10 +105,11 @@ namespace proton
   void atom::end_subscription(const Subscription& subscription) {
     // Unstake all amounts from an account
     auto delband = del_bandwidth_table(SYSTEM_CONTRACT, get_self().value);
-    auto staked = delband.require_find(subscription.account.value);
-
-    undelegatebw_action udb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
-    udb_action.send(get_self(), subscription.account, staked->net_weight, staked->cpu_weight);
+    auto staked = delband.find(subscription.account.value);
+    if (staked != delband.end()) {
+      undelegatebw_action udb_action( SYSTEM_CONTRACT, {get_self(), "active"_n} );
+      udb_action.send(get_self(), subscription.account, staked->net_weight, staked->cpu_weight);
+    }
   }
 
   void atom::newaccount (
