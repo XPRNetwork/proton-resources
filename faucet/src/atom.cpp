@@ -65,7 +65,9 @@ namespace proton
     // Refund
     if (programsIt->savedToken.quantity.amount > 0) {
       atom::transfer_action transfer_act(programsIt->savedToken.contract, {get_self(), name("active")});
-      transfer_act.send(get_self(), account, programsIt->savedToken.quantity, "claim");
+      if (account != get_self()) {
+        transfer_act.send(get_self(), account, programsIt->savedToken.quantity, "claim");
+      }
     }
 
     // Delete
