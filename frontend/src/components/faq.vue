@@ -33,7 +33,7 @@ export default {
       faqs: [
         {
           question: 'Can I buy RAM independantly?',
-          answer: 'Yes, you can buy up to 3MB of RAM.'
+          answer: 'Yes, you can buy up to 6 MB of RAM.'
         },
         {
           question: 'What is the more scarce resource: NET or CPU?',
