@@ -1,8 +1,8 @@
 {
   "name": "proton-resources",
   "version": "1.0.2",
-  "description": "Proton Resources",
-  "author": "jafri <syed.jafri2@ucalgary.ca>",
+  "description": "XPR Network Resources",
+  "author": "Metallicus",
   "private": true,
   "scripts": {
     "dev": "VUE_APP_CHAIN=proton-test vue-cli-service serve",

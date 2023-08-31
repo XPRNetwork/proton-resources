@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
       <div class="lg:space-y-10">
         <h2 class="text-3xl font-extrabold text-white">
-          The world's most innovative companies use Proton
+          The world's most innovative companies use XPR Network
         </h2>
         <div class="mt-8 flow-root lg:mt-0">
           <div class="-mt-4 -ml-8 flex flex-wrap justify-between lg:-ml-4">

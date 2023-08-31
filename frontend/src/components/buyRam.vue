@@ -21,7 +21,7 @@
               </div>
               <div class="mt-1 text-sm text-gray-600 sm:flex sm:items-center">
                 <div>
-                  Note: Proton Wallet provides 12,000 unsellable bytes to every account
+                  Note: WebAuth provides 12,000 unsellable bytes to every account
                 </div>
               </div>
 

@@ -4,7 +4,7 @@
       <div class="flex justify-between items-center border-b border-gray-200 py-6 md:justify-start md:space-x-10">
         <div class="hidden sm:block flex justify-start">
           <router-link to="/">
-            <span class="sr-only">Proton</span>
+            <span class="sr-only">XPR Network</span>
             <img class="w-auto h-8 sm:h-10" src="@/assets/logo.svg" alt="">
           </router-link>
         </div>

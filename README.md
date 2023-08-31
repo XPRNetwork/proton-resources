@@ -1,4 +1,4 @@
-# Proton Resources
+# XPR Network Resources
 
 ## Directory
 - atom: Smart Contracts
