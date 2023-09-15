@@ -10,7 +10,7 @@ import './filters'
 
 // Redirects
 if (window.location.href.indexOf('protonresources.com') !== -1) {
-  window.location.href = window.location.href.replace('protonresources.com', 'resources.xprnetwork.org');
+  window.location.href = window.location.href.replace('protonresources.com', 'resources.xprnetwork.org')
 }
 
 Vue.config.productionTip = false
