@@ -9,6 +9,18 @@
   command = "npm run build"
 
 [[redirects]]
+  from = "https://protonresources.com/*"
+  to = "https://resources.xprnetwork.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://testnet.protonresources.com/*"
+  to = "https://testnet.resources.xprnetwork.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
