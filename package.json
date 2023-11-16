@@ -1,5 +1,5 @@
 {
-  "name": "proton-resources",
+  "name": "xpr-network-resources",
   "version": "1.0.0",
   "description": "## Directory - atom: Smart Contracts - js_tests: JS Tests - c++_tests: C++ Tests (optional, have to manually build EOSIO)",
   "main": "index.js",
@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProtonProtocol/proton-resources.git"
+    "url": "git+https://github.com/XPRNetwork/proton-resources.git"
   },
   "author": "Syed Jafri",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ProtonProtocol/proton-resources/issues"
+    "url": "https://github.com/XPRNetwork/proton-resources/issues"
   },
-  "homepage": "https://github.com/ProtonProtocol/proton-resources#readme",
+  "homepage": "https://github.com/XPRNetwork/proton-resources#readme",
   "dependencies": {}
 }

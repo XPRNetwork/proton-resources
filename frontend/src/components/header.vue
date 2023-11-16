@@ -25,7 +25,7 @@
           <router-link to="/faucet" class="text-base font-medium text-gray-500 hover:text-purple-900">
             Faucet
           </router-link>
-          <a href="https://github.com/ProtonProtocol/proton-resources" target="_blank" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
+          <a href="https://github.com/XPRNetwork/proton-resources" target="_blank" class="hidden sm:block text-base font-medium text-gray-500 hover:text-purple-900">
             Github
           </a>
         </nav>

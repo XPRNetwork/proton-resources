@@ -7,7 +7,7 @@
         </h1>
         <p class="mt-5 text-xl text-gray-500 sm:text-center">
           Free faucets on XPR Network. <br/>
-          For full list of tokens, contracts and precisions, check <a href="https://protonscan.io/tokens" target="_blank" class="text-purple-600">ProtonScan</a>
+          For full list of tokens, contracts and precisions, check <a href="https://explorer.xprnetwork.org/tokens" target="_blank" class="text-purple-600">XPR Network Explorer</a>
         </p>
       </div>
 
