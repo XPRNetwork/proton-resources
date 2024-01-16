@@ -45,7 +45,7 @@ export default {
         },
         {
           title: 'Battle Tested',
-          description: 'Our bots have been tested at up to 1 million daily transactions with steady resource consumption.'
+          description: 'XPR Network has been tested at up to 1 million+ daily transactions with steady resource consumption.'
         },
         {
           title: 'World Class Governance',

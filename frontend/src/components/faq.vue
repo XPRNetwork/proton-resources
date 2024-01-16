@@ -6,7 +6,7 @@
           Frequently asked questions
         </h2>
         <p class="text-lg text-gray-500">
-          Can’t find the answer you’re looking for? Reach out to our <a href="http://support.protonchain.com/" target="_blank" class="font-medium text-purple-600 hover:text-purple-500">customer support</a> team.
+          Can’t find the answer you’re looking for? Reach out to our <a href="https://help.xprnetwork.org/hc/en-us" target="_blank" class="font-medium text-purple-600 hover:text-purple-500">customer support</a> team.
         </p>
       </div>
       <div class="mt-12 lg:mt-0 lg:col-span-2">
