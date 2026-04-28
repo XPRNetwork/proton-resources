@@ -1,32 +1,21 @@
 <template>
-  <div id="app">
-    <Header/>
-    <keep-alive>
-      <router-view/>
-    </keep-alive>
-    <Footer/>
+  <div class="grid grid-rows-[max-content_auto_max-content] min-h-dvh">
+    <Header />
+
+    <main>
+      <router-view />
+    </main>
+
+    <Footer />
   </div>
 </template>
 
-<script>
-import Footer from '@/components/footer'
-import Header from '@/components/header'
-import { mapActions } from 'vuex'
+<script lang="ts" setup>
+import Header from '@/layout/header-layout.vue'
+import Footer from '@/layout/footer-layout.vue'
+import { useUserStore } from './stores/user'
 
-export default {
-  name: 'App',
-  components: {
-    Footer,
-    Header
-  },
-  methods: {
-    ...mapActions({
-      reconnect: 'user/reconnect'
-    })
-  },
+const userStore = useUserStore()
 
-  created () {
-    this.reconnect()
-  }
-}
+userStore.reconnect()
 </script>
