@@ -1,0 +1,6 @@
+@import './tailwind.css';
+
+/* ? Need to check if we need this */
+.router-link-exact-active {
+  @apply text-purple-700;
+}

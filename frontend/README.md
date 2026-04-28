@@ -1,30 +1,31 @@
-# example
+# XPR Network Resources
 
-> A Vue.js project
+## Project Setup
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+```sh
+yarn
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Compile and Hot-Reload for Testnet
+
+```sh
+yarn dev
+```
+
+### Compile and Hot-Reload for Mainnet
+
+```sh
+yarn dev:prod
+```
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+yarn build
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+yarn lint
+```
