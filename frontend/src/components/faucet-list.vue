@@ -77,29 +77,30 @@
                         {{ parseSeconds(faucet.duration) }}
                       </td>
                       <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <span v-if="!actor" @click="login" class="cursor-pointer"> Login </span>
-                        <span
-                          v-else-if="
-                            account &&
-                            account.expiryByProgramProcessed &&
-                            now < (account.expiryByProgramProcessed.get(faucet.index) ?? 0)
-                          "
-                        >
-                          Claim in
-                          {{
-                            parseSeconds(
-                              (account.expiryByProgramProcessed.get(faucet.index) ?? 0) - now,
-                            )
-                          }}
-                        </span>
-                        <button
-                          v-else
-                          @click="claim(faucet.index)"
-                          type="button"
-                          class="cursor-pointer w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
-                        >
-                          Claim
-                        </button>
+                        <template v-if="actor">
+                          <span
+                            v-if="
+                              account &&
+                              account.expiryByProgramProcessed &&
+                              now < (account.expiryByProgramProcessed.get(faucet.index) ?? 0)
+                            "
+                          >
+                            Claim in
+                            {{
+                              parseSeconds(
+                                (account.expiryByProgramProcessed.get(faucet.index) ?? 0) - now,
+                              )
+                            }}
+                          </span>
+                          <button
+                            v-else
+                            @click="claim(faucet.index)"
+                            type="button"
+                            class="cursor-pointer w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
+                          >
+                            Claim
+                          </button>
+                        </template>
                       </td>
                     </tr>
                   </tbody>
