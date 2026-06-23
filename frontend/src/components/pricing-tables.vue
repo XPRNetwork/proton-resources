@@ -6,7 +6,7 @@
           <span v-if="CHAIN === 'proton-test'">Testnet</span> Resource Plans
         </h1>
 
-        <div class="ui-text mt-5 sm:text-center">
+        <div class="ui-text mt-5 sm:text-center sm:max-w-3/4 md:max-w-1/2 mx-auto">
           <p>
             Start building for free, then add a resource plan to go live. <br />
             Each plan unlocks additional features.

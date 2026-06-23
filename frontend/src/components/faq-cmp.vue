@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
     <div class="lg:grid lg:grid-cols-3 lg:gap-8">
       <div class="space-y-4">
-        <h2 class="ui-title-2">Frequently asked questions</h2>
+        <h2 class="ui-title-1">Frequently asked questions</h2>
         <div class="ui-text">
           <p>
             Can’t find the answer you’re looking for? Reach out to our

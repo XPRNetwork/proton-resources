@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="ui-title-2">All-in-one platform</h2>
-        <div class="ui-text mt-4">
+      <div class="text-center">
+        <h2 class="ui-title-1">All-in-one platform</h2>
+        <div class="ui-text mt-4 sm:max-w-3/4 md:max-w-1/2 mx-auto">
           <p>
             XPR Network is the robust, all-in-one platform that is ideal for consumer grade
             blockchain apps.

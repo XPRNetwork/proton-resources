@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto pt-24 px-4 sm:px-6 lg:px-8">
       <div class="sm:flex sm:flex-col sm:align-center">
         <h1 class="ui-title-1 sm:text-center">Buy Blockchain Storage</h1>
-        <div class="ui-text mt-5 sm:text-center">
+        <div class="ui-text mt-5 sm:text-center sm:max-w-3/4 md:max-w-1/2 mx-auto">
           <p>
             Blockchain Storage (RAM) allows you to store data on the blockchain such as NFTs,
             marketplace sales and tokens.

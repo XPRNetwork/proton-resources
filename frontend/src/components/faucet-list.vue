@@ -2,7 +2,7 @@
   <div class="pb-20">
     <div class="max-w-7xl mx-auto pt-24 px-4 sm:px-6 lg:px-8">
       <h1 class="ui-title-1 sm:text-center">Faucets</h1>
-      <div class="ui-text mt-5 sm:text-center">
+      <div class="ui-text mt-5 sm:text-center sm:max-w-3/4 md:max-w-1/2 mx-auto">
         <p>
           Free faucets on XPR Network. <br />
           For full list of tokens, contracts and precisions, check
