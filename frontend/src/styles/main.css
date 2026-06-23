@@ -18,7 +18,7 @@ body {
 }
 
 .ui-text {
-  @apply text-neutral-500 font-inter text-base font-semibold leading-normal -tracking-own-x4
+  @apply text-neutral-500 font-inter text-base font-medium leading-normal -tracking-own-x4
 }
 
 .ui-link {

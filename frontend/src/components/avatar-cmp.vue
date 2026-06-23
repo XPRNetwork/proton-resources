@@ -52,19 +52,20 @@
           leave-to-class="opacity-0 scale-95"
         >
           <div
-            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-neutral-200 ring-opacity-5"
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-neutral-200 ring-opacity-5 font-semibold"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="user-menu"
             v-if="active"
           >
-            <span
-              class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 cursor-pointer"
+            <button
+              type="button"
+              class="px-4 py-2 flex items-center text-sm gap-2 cursor-pointer -tracking-own-x3 text-red-500 hover:text-red-700 leading-none whitespace-nowrap"
               role="menuitem"
-              @click="logout"
+              @click.stop="logout"
             >
-              Logout
-            </span>
+              <LogoutIcon class="shrink-0 size-4" /> <span>Logout</span>
+            </button>
           </div>
         </transition>
       </div>
@@ -77,6 +78,7 @@ import { useUserStore } from '@/stores/user'
 import { createReusableTemplate, onClickOutside } from '@vueuse/core'
 import { computed, ref, useTemplateRef } from 'vue'
 import ChevronDown from './icons/chevron-down-icon.vue'
+import LogoutIcon from './icons/logout-icon.vue'
 
 const userStore = useUserStore()
 const menuParent = useTemplateRef('menu-parent')

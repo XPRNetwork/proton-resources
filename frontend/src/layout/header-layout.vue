@@ -34,7 +34,7 @@
             :activeClass="linkActiveClass"
             :inactiveClass="linkInactiveClass"
           >
-            <span class="hidden md:inline-block">Create</span> Account
+            <span class="hidden md:inline">Create</span> Account
           </app-router-link>
 
           <app-router-link
@@ -69,7 +69,7 @@ import Avatar from '@/components/avatar-cmp.vue'
 import ArrowTopRightOnSquare from '@/components/icons/arrow-top-right-on-square-icon.vue'
 
 const linkClass =
-  'hover:text-black group rounded-2xl p-2 px-2 flex items-center gap-2 text-base -tracking-own-x3'
+  'hover:text-black group rounded-2xl p-2 px-2 text-base -tracking-own-x3 whitespace-nowrap'
 const linkActiveClass = 'text-black font-semibold'
 const linkInactiveClass = 'text-neutral-500 font-medium'
 </script>

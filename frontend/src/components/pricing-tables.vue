@@ -8,8 +8,8 @@
 
         <div class="ui-text mt-5 sm:text-center">
           <p>
-            Start building for free, then add a resource plan to go live. Each plan unlocks
-            additional features.
+            Start building for free, then add a resource plan to go live. <br />
+            Each plan unlocks additional features.
           </p>
         </div>
       </div>
