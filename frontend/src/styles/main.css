@@ -1,6 +1,76 @@
+/* @import './fonts/inter.css'; */
 @import './tailwind.css';
 
-/* ? Need to check if we need this */
-.router-link-exact-active {
-  @apply text-purple-700;
+body {
+  @apply min-h-screen text-zinc-900 font-inter;
+}
+
+.ui-title-1 {
+  @apply text-black font-inter text-4xl font-semibold leading-normal -tracking-own-x6;
+}
+
+.ui-title-2 {
+  @apply text-black font-inter text-2xl font-semibold leading-normal -tracking-own-x5;
+}
+
+.ui-title-3 {
+  @apply text-black font-inter text-base font-semibold leading-normal -tracking-own-x4;
+}
+
+.ui-text {
+  @apply text-neutral-500 font-inter text-base font-semibold leading-normal -tracking-own-x4
+}
+
+.ui-link {
+  @apply text-blue-800 hover:text-blue-800/90
+}
+
+.form-field {
+  @apply min-h-12 px-3 py-2 box-border rounded-2xl border border-neutral-200 w-full outline-none focus-within:ring-1 flex items-center gap-1;
+  &:not(.has-error):focus-within {
+    @apply border-blue-800 ring-blue-800;
+  }
+}
+.form-field__input {
+  @apply outline-none grow min-w-0;
+}
+
+.form-field.has-error {
+  @apply border-red-500 focus:ring-red-500 focus:border-red-500 text-red-500;
+}
+
+.form-field-error {
+  @apply block leading-none -tracking-own-x3 text-sm font-medium text-red-500;
+}
+
+.form-field-label {
+  @apply text-base text-neutral-500 -tracking-own-x4 leading-none px-3 font-medium;
+}
+
+.ui-button {
+  @apply cursor-pointer min-h-12 px-4 py-2  outline-none font-inter text-base leading-normal -tracking-own-x4 font-semibold rounded-2xl;
+
+  &:disabled {
+    @apply cursor-auto;
+  }
+
+  &.ui-is-primary {
+    @apply bg-blue-800 text-white;
+
+    &:disabled {
+      @apply bg-blue-800/80;
+    }
+
+    &:not(:disabled):hover {
+      @apply bg-blue-800/90;
+    }
+  }
+
+  &.ui-is-secondary {
+    @apply border border-neutral-300 shadow-2xs  bg-transparent text-neutral-700 ;
+
+    &:not(:disabled):hover {
+      @apply bg-neutral-50
+    }
+  }
 }

@@ -4,7 +4,7 @@
       <div class="flex items-center">
         <div class="shrink-0">
           <svg
-            class="h-6 w-6 text-gray-400"
+            class="h-6 w-6 text-neutral-400"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -21,11 +21,11 @@
         </div>
         <div class="ml-5 w-0 flex-1">
           <dl>
-            <dt class="text-sm font-medium text-gray-500 truncate">
+            <dt class="text-sm font-medium text-neutral-500 truncate">
               {{ title }}
             </dt>
             <dd>
-              <div class="text-lg font-medium text-gray-900">
+              <div class="text-lg font-medium text-neutral-900">
                 <slot />
               </div>
             </dd>

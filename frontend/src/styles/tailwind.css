@@ -1,2 +1,14 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/forms";
+
+@theme {
+  --font-inter:
+    'Inter', ui-sans-serif, system-ui, -apple-system, system-ui, Segoe UI, Roboto, Helvetica Neue,
+    Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
+
+  --tracking-own-x3: 0.42px;
+  --tracking-own-x4: 0.48px;
+  --tracking-own-x5: 1.2px;
+  --tracking-own-x6: 2px;
+}
+

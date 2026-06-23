@@ -12,6 +12,7 @@ const getDefaultState = (): {
 
   accountData?: unknown & {
     avatar?: string
+    name?: string
   }
 } => ({
   actor: undefined,
