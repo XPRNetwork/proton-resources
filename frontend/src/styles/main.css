@@ -6,7 +6,7 @@ body {
 }
 
 .ui-title-1 {
-  @apply text-black font-inter text-4xl font-semibold leading-normal -tracking-own-x6;
+  @apply text-black font-inter text-4xl font-semibold leading-[1.3] -tracking-own-x6;
 }
 
 .ui-title-2 {
