@@ -1,11 +1,10 @@
 <template>
-  <div class="bg-linear-to-b from-white to-gray-50 pb-20">
+  <div class="pb-20">
     <div class="max-w-7xl mx-auto pt-24 px-4 sm:px-6 lg:px-8">
-      <div class="sm:flex sm:flex-col sm:align-center">
-        <h1 class="text-5xl font-extrabold text-gray-900 sm:text-center">Create account</h1>
-        <p class="mt-5 text-xl text-gray-500 sm:text-center">
-          Create a new account with your own custom keys
-        </p>
+      <h1 class="ui-title-1 sm:text-center">Create account</h1>
+
+      <div class="ui-text mt-5 sm:text-center">
+        <p>Create a new account with your own custom keys</p>
       </div>
 
       <div class="flex justify-center mt-6 py-6">
@@ -13,48 +12,54 @@
           class="max-w-xl mt-5 bg-white shadow sm:rounded-lg px-6 py-5 sm:flex sm:items-start sm:justify-between"
         >
           <div class="w-full">
-            <div class="font-medium text-gray-900">
+            <div class="font-medium text-neutral-900">
               Can create:
               <span v-if="balance !== undefined && costOfAccountInXpr">
                 {{ Math.floor(balance / costOfAccountInXpr) }} accounts
               </span>
               <span v-else> Please login </span>
             </div>
-            <div class="mt-1 pr-16 text-sm text-gray-600 sm:flex sm:items-center">
+            <div class="mt-1 pr-16 text-sm text-neutral-600 sm:flex sm:items-center">
               <div>
                 Note: Non-vanity names cost {{ costOfAccountInXpr.toFixed(2) }} XPR to create.
                 Vanity (.xpr, .btc, etc) names cost 50 XPR to create.
               </div>
             </div>
 
-            <div class="mt-8 flex flex-col space-y-4">
+            <div class="mt-8 flex flex-col gap-4">
               <div class="w-full">
-                Account Name:
-                <input
-                  type="text"
-                  name="buybytes"
-                  class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                  v-model="newAccountName"
-                  :placeholder="`Account Name (a-z, 1-5, min 4 chars)`"
-                />
+                <label for="new-account-name" class="form-field-label mb-2 block">
+                  Account Name:
+                </label>
+                <div class="form-field w-full">
+                  <input
+                    type="text"
+                    name="new-account-name"
+                    id="new-account-name"
+                    v-model="newAccountName"
+                    :placeholder="`Account Name (a-z, 1-5, min 4 chars)`"
+                    class="form-field__input"
+                  />
+                </div>
               </div>
 
               <div class="w-full">
-                Account Public Key:
-                <input
-                  type="text"
-                  name="buybytes"
-                  class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                  v-model="newAccountOwnerKey"
-                  :placeholder="`Account Key (Starting with PUB_K1)`"
-                />
+                <label for="new-account-key" class="form-field-label mb-2 block">
+                  Account Public Key:
+                </label>
+                <div class="form-field w-full">
+                  <input
+                    type="text"
+                    name="new-account-key"
+                    id="new-account-key"
+                    v-model="newAccountOwnerKey"
+                    :placeholder="`Account Key (Starting with PUB_K1)`"
+                    class="form-field__input"
+                  />
+                </div>
               </div>
 
-              <button
-                type="button"
-                class="cursor-pointer w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500sm:w-auto sm:text-sm"
-                @click="createAccount"
-              >
+              <button type="button" class="ui-button ui-is-primary w-full" @click="createAccount">
                 Create Account
               </button>
             </div>

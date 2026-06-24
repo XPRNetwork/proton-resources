@@ -3,7 +3,7 @@
     <BotClass @select-bot-index="(botIndex) => (selectedBot = bots[botIndex])" />
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-lg leading-6 font-medium text-gray-900">Overview</h2>
+      <h2 class="text-lg leading-6 font-medium text-neutral-900">Overview</h2>
       <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <OverviewCard title="Transactions per day">
           {{ formatNumber(transactionsPerDay) }}
@@ -30,7 +30,7 @@
     </div>
 
     <h2
-      class="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-gray-900 sm:px-6 lg:px-8"
+      class="max-w-6xl mx-auto mt-8 px-4 text-lg leading-6 font-medium text-neutral-900 sm:px-6 lg:px-8"
     >
       Recent activity
     </h2>
@@ -39,50 +39,54 @@
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col mt-2">
           <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200">
+            <table class="min-w-full divide-y divide-neutral-200">
               <thead>
                 <tr>
                   <th
-                    class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 bg-neutral-50 text-center text-xs font-medium text-neutral-500 uppercase tracking-wider"
                   >
                     #
                   </th>
                   <th
-                    class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 bg-neutral-50 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider"
                   >
                     Oracle Transaction
                   </th>
                   <th
-                    class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 bg-neutral-50 text-center text-xs font-medium text-neutral-500 uppercase tracking-wider"
                   >
                     Value
                   </th>
                   <th
-                    class="hidden px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider md:block"
+                    class="hidden px-6 py-3 bg-neutral-50 text-center text-xs font-medium text-neutral-500 uppercase tracking-wider md:block"
                   >
                     Status
                   </th>
                   <th
-                    class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    class="px-6 py-3 bg-neutral-50 text-center text-xs font-medium text-neutral-500 uppercase tracking-wider"
                   >
                     Date
                   </th>
                 </tr>
               </thead>
 
-              <transition-group name="list" class="bg-white divide-y divide-gray-200" tag="tbody">
+              <transition-group
+                name="list"
+                class="bg-white divide-y divide-neutral-200"
+                tag="tbody"
+              >
                 <tr class="bg-white" v-for="(tx, i) of selectedBot.history" :key="tx.id">
-                  <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                    <span class="text-gray-900 font-medium">
+                  <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-neutral-500">
+                    <span class="text-neutral-900 font-medium">
                       {{ formatNumber(transactionsPerDay - i) }}
                     </span>
                   </td>
-                  <td class="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td class="max-w-0 w-full px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
                     <div class="flex">
                       <a href="#" class="group inline-flex space-x-2 truncate text-sm">
                         <!-- Heroicon name: cash -->
                         <svg
-                          class="shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                          class="shrink-0 h-5 w-5 text-neutral-400 group-hover:text-neutral-500"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
                           fill="currentColor"
@@ -95,26 +99,26 @@
                           />
                         </svg>
                         <a :href="`${EXPLORER_URL}/transaction/${tx.id}`" target="_blank">
-                          <p class="text-gray-500 truncate group-hover:text-gray-900">
+                          <p class="text-neutral-500 truncate group-hover:text-neutral-900">
                             BTC/USDT Price
                           </p>
                         </a>
                       </a>
                     </div>
                   </td>
-                  <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
-                    <span class="text-gray-900 font-medium"
+                  <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-neutral-500">
+                    <span class="text-neutral-900 font-medium"
                       >${{ tx.data.d_double ? formatNumber(+tx.data.d_double, 2) : 0 }}
                     </span>
                   </td>
-                  <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
+                  <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-neutral-500 md:block">
                     <span
                       class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 capitalize"
                     >
                       success
                     </span>
                   </td>
-                  <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-gray-500">
+                  <td class="px-6 py-4 text-right whitespace-nowrap text-sm text-neutral-500">
                     {{ parseDate(tx.time).format('hh:mm:ss A, MMM DD YYYY') }}
                   </td>
                 </tr>
@@ -122,11 +126,11 @@
             </table>
 
             <nav
-              class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+              class="bg-white px-4 py-3 flex items-center justify-between border-t border-neutral-200 sm:px-6"
               aria-label="Pagination"
             >
               <div class="hidden sm:block">
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-neutral-700">
                   Showing latest
                   <span class="font-medium">{{ selectedBot.history.length }}</span>
                   transactions

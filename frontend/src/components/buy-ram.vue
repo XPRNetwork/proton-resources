@@ -1,12 +1,14 @@
 <template>
-  <div class="bg-linear-to-b from-white to-gray-50 pb-20">
+  <div class="pb-20">
     <div class="max-w-7xl mx-auto pt-24 px-4 sm:px-6 lg:px-8">
       <div class="sm:flex sm:flex-col sm:align-center">
-        <h1 class="text-5xl font-extrabold text-gray-900 sm:text-center">Buy Blockchain Storage</h1>
-        <p class="mt-5 text-xl text-gray-500 sm:text-center">
-          Blockchain Storage (RAM) allows you to store data on the blockchain such as NFTs,
-          marketplace sales and tokens.
-        </p>
+        <h1 class="ui-title-1 sm:text-center">Buy Blockchain Storage</h1>
+        <div class="ui-text mt-5 sm:text-center sm:max-w-3/4 md:max-w-1/2 mx-auto">
+          <p>
+            Blockchain Storage (RAM) allows you to store data on the blockchain such as NFTs,
+            marketplace sales and tokens.
+          </p>
+        </div>
       </div>
 
       <div class="flex justify-center mt-6 sm:p-6">
@@ -16,64 +18,69 @@
           <h4 class="sr-only">RAM</h4>
           <div class="sm:flex sm:items-start">
             <div class="mt-3 sm:mt-0 sm:ml-4">
-              <div class="font-medium text-gray-900">
+              <div class="font-medium text-neutral-900">
                 Account Usage:
                 <span v-if="account">{{ account.ram_usage }} / {{ account.ram_quota }} bytes</span>
               </div>
-              <div class="mt-1 text-sm text-gray-600 sm:flex sm:items-center">
+              <div class="mt-1 text-sm text-neutral-600 sm:flex sm:items-center">
                 <div>Note: WebAuth provides 12,000 unsellable bytes to every account</div>
               </div>
 
               <div class="mt-6 sm:items-center">
-                Buy Storage Bytes ({{ ram_price_per_byte }} XPR / byte):
+                <label for="buybytes" class="form-field-label mb-2 block"
+                  >Buy Storage Bytes ({{ ram_price_per_byte }} XPR / byte):
+                </label>
 
                 <div class="mt-2 flex">
-                  <div class="w-full sm:max-w-xs">
+                  <div class="form-field w-full sm:max-w-xs">
                     <input
                       type="text"
                       name="buybytes"
-                      class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      id="buybytes"
                       v-model="buyRamBytes"
                       :placeholder="`Maximum ${account ? max_per_user_bytes - ram : max_per_user_bytes}`"
+                      class="form-field__input"
                     />
                   </div>
                   <button
                     type="button"
-                    class="cursor-pointer w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    class="ui-button ui-is-primary w-full sm:ml-3 sm:w-auto"
                     @click="buyRam"
                   >
                     Buy
                   </button>
                 </div>
 
-                <div v-if="buyRamBytes" class="mt-2">
+                <div v-if="buyRamBytes" class="mt-2 px-3 text-sm">
                   = {{ (ram_price_per_byte * buyRamBytes).toFixed(4) }} XPR
                 </div>
               </div>
 
               <div v-if="ram" class="mt-5 sm:items-center">
-                Sell Storage Bytes ({{ ram_price_per_byte_without_fee }} XPR / byte):
-
+                <label for="sellbytes" class="form-field-label mb-2 block"
+                  >Sell Storage Bytes ({{ ram_price_per_byte_without_fee }} XPR / byte):
+                </label>
                 <div class="mt-2 flex">
-                  <div class="w-full sm:max-w-xs">
+                  <div class="form-field w-full sm:max-w-xs">
                     <input
                       type="text"
                       name="sellbytes"
-                      class="shadow-sm focus:ring-purple-500 focus:border-purple-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                      id="sellbytes"
                       v-model="sellRamBytes"
                       :placeholder="`Maximum ${account ? Math.min(ram, +account.ram_quota - +account.ram_usage) : max_per_user_bytes}`"
+                      class="form-field__input"
                     />
                   </div>
                   <button
                     type="button"
-                    class="cursor-pointer w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    class="ui-button ui-is-primary w-full sm:ml-3 sm:w-auto"
                     @click="sellRam"
                   >
                     Sell
                   </button>
                 </div>
 
-                <div v-if="sellRamBytes" class="mt-2">
+                <div v-if="sellRamBytes" class="mt-2 px-3 text-sm">
                   = {{ (ram_price_per_byte_without_fee * sellRamBytes).toFixed(4) }} XPR
                 </div>
               </div>
