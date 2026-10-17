@@ -1,0 +1,154 @@
+name: Contract build
+
+on:
+  pull_request:
+    paths: &contract_paths
+      - "resources/**"
+      - "faucet/**"
+      - "js_tests/**"
+      - "CMakeLists.txt"
+      - ".github/workflows/ci.yml"
+  push:
+    branches:
+      - master
+    paths: *contract_paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build contracts
+    # The eosio.cdt 1.7.0 package needs libtinfo5, which Ubuntu 24.04 no longer ships.
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Install runner dependencies
+        run: |
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes ca-certificates curl libtinfo5 openssl build-essential cmake make
+
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      # The root CMakeLists.txt accepts eosio.cdt 1.7.x only.
+      - name: Install EOSIO.CDT
+        run: |
+          curl \
+            --fail \
+            --location \
+            --retry 3 \
+            --output /tmp/eosio.cdt.deb \
+            https://github.com/EOSIO/eosio.cdt/releases/download/v1.7.0/eosio.cdt_1.7.0-1-ubuntu-18.04_amd64.deb
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes /tmp/eosio.cdt.deb
+          eosio-cpp --version
+
+      # Out-of-source build so the committed atom.abi / atom.wasm are not overwritten.
+      - name: Build contracts
+        run: |
+          cmake -S . -B build -DCMAKE_PREFIX_PATH=/usr/opt/eosio.cdt/1.7.0
+          cmake --build build
+          test -s build/resources/atom.abi
+          test -s build/resources/atom.wasm
+          test -s build/faucet/atom.abi
+          test -s build/faucet/atom.wasm
+
+      - name: Check committed ABIs are up to date
+        run: |
+          diff -u resources/atom.abi build/resources/atom.abi
+          diff -u faucet/atom.abi build/faucet/atom.abi
+
+      - name: Print wasm SHA-256
+        run: |
+          openssl dgst -sha256 build/resources/atom.wasm resources/atom.wasm
+          openssl dgst -sha256 build/faucet/atom.wasm faucet/atom.wasm
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v7
+        with:
+          name: contract-build
+          path: |
+            build/resources/atom.abi
+            build/resources/atom.wasm
+            build/faucet/atom.abi
+            build/faucet/atom.wasm
+          if-no-files-found: error
+          retention-days: 7
+
+  test:
+    name: VeRT tests
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: js_tests
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download build output
+        uses: actions/download-artifact@v7
+        with:
+          name: contract-build
+          path: build
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: js_tests/package-lock.json
+
+      - name: Install test dependencies
+        run: npm ci
+
+      # Test the wasm built above, not the committed one.
+      - name: Run tests
+        env:
+          RESOURCES_CONTRACT: ../build/resources/atom
+        run: npm test
+
+  release:
+    name: Publish release artifact
+    needs: [build, test]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Republishes the exact wasm built above rather than rebuilding.
+      - name: Download build output
+        uses: actions/download-artifact@v7
+        with:
+          name: contract-build
+          path: build
+
+      - name: Print resources atom.wasm SHA-256
+        run: openssl dgst -sha256 build/resources/atom.wasm
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: proton-resources-contract-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            build/resources/atom.abi
+            build/resources/atom.wasm
+          if-no-files-found: error

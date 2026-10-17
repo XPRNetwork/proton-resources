@@ -19,6 +19,7 @@ namespace proton {
 
     // Validate transfer
     check(to == get_self(), "Invalid Deposit");
+    check_not_paused();
 
     // Deposit
     name token_contract = get_first_receiver();
@@ -27,13 +28,11 @@ namespace proton {
     // Add balance
     auto balance_to_add = extended_asset(quantity, token_contract);
     add_balance(from, balance_to_add);
-
-    // Process action
-    process(MAX_PROCESS);
   }
 
   void atom::withdraw (const name& account, const extended_asset& balance) {
     require_auth(account);
+    check_not_paused();
     substract_balance(account, balance);
     transfer_to(account, balance, "");
   }
