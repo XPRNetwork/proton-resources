@@ -8,6 +8,7 @@ on:
       - "js_tests/**"
       - "CMakeLists.txt"
       - ".github/workflows/ci.yml"
+      - ".github/scripts/**"
   push:
     branches:
       - master
@@ -24,8 +25,7 @@ concurrency:
 jobs:
   build:
     name: Build contracts
-    # eosio-ld from CDT 1.7 hangs on the standard GitHub-hosted runners; the org's larger runner works.
-    runs-on: ubuntu-24.04-l
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
 
     defaults:
@@ -47,25 +47,19 @@ jobs:
             --output "$RUNNER_TEMP/eosio.cdt.deb"
           echo "f3784dacbc4e0b7ffd144edaa8bc10bb02c86e5b912c015bd505a0b55305db90  $RUNNER_TEMP/eosio.cdt.deb" | sha256sum --check --strict
 
-      # eosio.cdt 1.7.0 targets Ubuntu 18.04 and its linker hangs on newer runner images,
-      # so build inside an 18.04 container. Out-of-source so committed atom.abi / atom.wasm are untouched.
+      # eosio.cdt 1.7.0 targets Ubuntu 18.04, so build inside an 18.04 container.
+      # Out-of-source so committed atom.abi / atom.wasm are untouched.
+      # SYS_PTRACE lets the build script strace a stalled linker.
       - name: Build contracts
-        timeout-minutes: 15
+        timeout-minutes: 20
         run: |
           set -euo pipefail
           docker run --rm --platform linux/amd64 \
+            --cap-add SYS_PTRACE --security-opt seccomp=unconfined \
             --volume "$RUNNER_TEMP/eosio.cdt.deb:/tmp/eosio.cdt.deb:ro" \
             --volume "$GITHUB_WORKSPACE:/project" \
             --workdir /project \
-            ubuntu:18.04 /bin/bash -euxo pipefail -c '
-              apt-get update
-              DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends /tmp/eosio.cdt.deb cmake make g++
-              eosio-cpp --version
-              mkdir -p build && cd build
-              cmake -DCMAKE_PREFIX_PATH=/usr/opt/eosio.cdt/1.7.0 ..
-              cmake --build . --target resources
-              cmake --build . --target faucet
-            '
+            ubuntu:18.04 bash .github/scripts/build-contracts.sh
           test -s build/resources/atom.abi
           test -s build/resources/atom.wasm
           test -s build/faucet/atom.abi
