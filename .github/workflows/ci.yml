@@ -25,7 +25,7 @@ jobs:
   build:
     name: Build contracts
     # The eosio.cdt 1.7.0 package needs libtinfo5, which Ubuntu 24.04 no longer ships.
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04 # Ubuntu 24.04 doesn't have libtinfo5
     timeout-minutes: 30
 
     defaults:
