@@ -25,7 +25,7 @@ jobs:
   build:
     name: Build contracts
     # The eosio.cdt 1.7.0 package needs libtinfo5, which Ubuntu 24.04 no longer ships.
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-18.04
     timeout-minutes: 30
 
     defaults:
@@ -55,9 +55,11 @@ jobs:
 
       # Out-of-source build so the committed atom.abi / atom.wasm are not overwritten.
       - name: Build contracts
+        timeout-minutes: 10
         run: |
           cmake -S . -B build -DCMAKE_PREFIX_PATH=/usr/opt/eosio.cdt/1.7.0
-          cmake --build build
+          cmake --build build --target resources -- VERBOSE=1
+          cmake --build build --target faucet -- VERBOSE=1
           test -s build/resources/atom.abi
           test -s build/resources/atom.wasm
           test -s build/faucet/atom.abi

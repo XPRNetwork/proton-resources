@@ -8,6 +8,13 @@
   # Default build command, allow getting private packages
   command = "npm run build"
 
+# Vue CLI 4 / webpack 4 predate Node 17: dependencies declare old engine ranges
+# and webpack 4 hashing needs the legacy OpenSSL provider.
+[build.environment]
+  NODE_VERSION = "20"
+  YARN_FLAGS = "--ignore-engines"
+  NODE_OPTIONS = "--openssl-legacy-provider"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
