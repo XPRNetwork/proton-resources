@@ -68,4 +68,12 @@ namespace proton {
   typedef multi_index<"subscription"_n, Subscription,
     indexed_by<"bytime"_n, const_mem_fun<Subscription, uint64_t, &Subscription::end_time>>
   > subscription_table;
+
+  /**
+   * Config
+   */
+  struct [[eosio::table("config"), eosio::contract("atom")]] Config {
+    bool paused = false;
+  };
+  typedef singleton<"config"_n, Config> config_singleton;
 }

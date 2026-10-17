@@ -68,6 +68,26 @@ icon:
 ---
 .
 
+<h1 class="contract">endsub</h1>
+
+---
+spec_version: "0.2.0"
+title: End Subscription
+summary: 'End Subscription'
+icon:
+---
+.
+
+<h1 class="contract">setpaused</h1>
+
+---
+spec_version: "0.2.0"
+title: Set Paused
+summary: 'Set Paused'
+icon:
+---
+.
+
 <h1 class="contract">cleanup</h1>
 
 ---
