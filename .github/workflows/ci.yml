@@ -24,8 +24,7 @@ concurrency:
 jobs:
   build:
     name: Build contracts
-    # The eosio.cdt 1.7.0 package needs libtinfo5, which Ubuntu 24.04 no longer ships.
-    runs-on: ubuntu-22.04 # Ubuntu 24.04 doesn't have libtinfo5
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
 
     defaults:
@@ -33,47 +32,54 @@ jobs:
         shell: bash
 
     steps:
-      - name: Install runner dependencies
-        run: |
-          sudo apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes ca-certificates curl libtinfo5 openssl build-essential cmake make
-
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       # The root CMakeLists.txt accepts eosio.cdt 1.7.x only.
-      - name: Install EOSIO.CDT
+      - name: Download EOSIO.CDT
         run: |
-          curl \
-            --fail \
-            --location \
-            --retry 3 \
-            --output /tmp/eosio.cdt.deb \
-            https://github.com/EOSIO/eosio.cdt/releases/download/v1.7.0/eosio.cdt_1.7.0-1-ubuntu-18.04_amd64.deb
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install --yes /tmp/eosio.cdt.deb
-          eosio-cpp --version
+          set -euo pipefail
+          curl --fail --location --retry 3 \
+            https://github.com/EOSIO/eosio.cdt/releases/download/v1.7.0/eosio.cdt_1.7.0-1-ubuntu-18.04_amd64.deb \
+            --output "$RUNNER_TEMP/eosio.cdt.deb"
+          echo "f3784dacbc4e0b7ffd144edaa8bc10bb02c86e5b912c015bd505a0b55305db90  $RUNNER_TEMP/eosio.cdt.deb" | sha256sum --check --strict
 
-      # Out-of-source build so the committed atom.abi / atom.wasm are not overwritten.
+      # eosio.cdt 1.7.0 targets Ubuntu 18.04 and its linker hangs on newer runner images,
+      # so build inside an 18.04 container. Out-of-source so committed atom.abi / atom.wasm are untouched.
       - name: Build contracts
-        timeout-minutes: 10
+        timeout-minutes: 15
         run: |
-          cmake -S . -B build -DCMAKE_PREFIX_PATH=/usr/opt/eosio.cdt/1.7.0
-          cmake --build build --target resources -- VERBOSE=1
-          cmake --build build --target faucet -- VERBOSE=1
+          set -euo pipefail
+          docker run --rm --platform linux/amd64 \
+            --volume "$RUNNER_TEMP/eosio.cdt.deb:/tmp/eosio.cdt.deb:ro" \
+            --volume "$GITHUB_WORKSPACE:/project" \
+            --workdir /project \
+            ubuntu:18.04 /bin/bash -euxo pipefail -c '
+              apt-get update
+              DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends /tmp/eosio.cdt.deb cmake make g++
+              eosio-cpp --version
+              mkdir -p build && cd build
+              cmake -DCMAKE_PREFIX_PATH=/usr/opt/eosio.cdt/1.7.0 ..
+              cmake --build . --target resources
+              cmake --build . --target faucet
+            '
           test -s build/resources/atom.abi
           test -s build/resources/atom.wasm
           test -s build/faucet/atom.abi
           test -s build/faucet/atom.wasm
 
-      - name: Check committed ABIs are up to date
+      - name: Check committed ABI and wasm are up to date
         run: |
           diff -u resources/atom.abi build/resources/atom.abi
           diff -u faucet/atom.abi build/faucet/atom.abi
+          cmp resources/atom.wasm build/resources/atom.wasm
+          cmp faucet/atom.wasm build/faucet/atom.wasm
 
       - name: Print wasm SHA-256
         run: |
-          openssl dgst -sha256 build/resources/atom.wasm resources/atom.wasm
-          openssl dgst -sha256 build/faucet/atom.wasm faucet/atom.wasm
+          sha256sum build/resources/atom.wasm resources/atom.wasm build/faucet/atom.wasm faucet/atom.wasm | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Upload build output
         uses: actions/upload-artifact@v7
