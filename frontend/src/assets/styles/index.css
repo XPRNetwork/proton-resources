@@ -1,8 +1,0 @@
-/*! @import */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.router-link-exact-active {
-  @apply text-purple-700;
-}
