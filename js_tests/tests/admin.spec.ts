@@ -90,9 +90,9 @@ describe("admin", () => {
         await expectAssert(newaccount("user1", "al.resources"), "contract is paused");
       });
 
-      it("still accepts treasury top-ups with the 'deposit' memo", async () => {
-        await deposit("user2", "10.0000 XPR", "deposit");
-        expect(tokenBalance("resources")).to.equal("100.0000 XPR");
+      it("blocks deposits with the 'deposit' memo too", async () => {
+        await expectAssert(deposit("user2", "10.0000 XPR", "deposit"), "contract is paused");
+        expect(tokenBalance("resources")).to.equal("90.0000 XPR");
       });
 
       it("still processes expired subscriptions", async () => {

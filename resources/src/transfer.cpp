@@ -7,11 +7,6 @@ namespace proton {
       return;
     }
 
-    // Skip if deposit memo
-    if (memo == "deposit") {
-      return;
-    }
-
     // Skip if deposit from system accounts
     if (from == "eosio.stake"_n || from == "eosio.ram"_n || from == "eosio"_n) {
       return;
@@ -24,10 +19,16 @@ namespace proton {
     // Deposit
     name token_contract = get_first_receiver();
     check(token_contract == SYSTEM_TOKEN_CONTRACT, "only eosio.token tokens are supported");
+    if (quantity.symbol == XPR_SYMBOL) {
+      check(quantity.amount >= MIN_XPR_DEPOSIT, "minimum deposit is 1.0000 XPR");
+    }
 
     // Add balance
     auto balance_to_add = extended_asset(quantity, token_contract);
     add_balance(from, balance_to_add);
+
+    // End expired subscriptions; if one gets stuck, the admin can remove it with endsub
+    process(MAX_PROCESS);
   }
 
   void atom::withdraw (const name& account, const extended_asset& balance) {

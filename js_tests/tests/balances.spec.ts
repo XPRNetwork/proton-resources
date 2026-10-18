@@ -29,10 +29,27 @@ describe("balances", () => {
       });
     });
 
-    it("does not credit transfers with the 'deposit' memo", async () => {
+    it("credits transfers with the 'deposit' memo like any other deposit", async () => {
       await deposit("user1", "100.0000 XPR", "deposit");
-      expect(internalBalances("user1")).to.deep.equal({});
+      expect(internalXpr("user1")).to.equal("100.0000 XPR");
       expect(tokenBalance("resources")).to.equal("100.0000 XPR");
+    });
+
+    it("accepts an XPR deposit equal to the minimum", async () => {
+      await deposit("user1", "1.0000 XPR");
+      expect(internalXpr("user1")).to.equal("1.0000 XPR");
+    });
+
+    it("rejects XPR deposits below the minimum", async () => {
+      await expectAssert(deposit("user1", "0.9999 XPR"), "minimum deposit is 1.0000 XPR");
+      await expectAssert(deposit("user1", "0.0001 XPR"), "minimum deposit is 1.0000 XPR");
+      expect(atom.tables.accounts().getTableRows()).to.deep.equal([]);
+    });
+
+    it("applies the minimum to top-ups of an existing balance", async () => {
+      await deposit("user1", "100.0000 XPR");
+      await expectAssert(deposit("user1", "0.5000 XPR"), "minimum deposit is 1.0000 XPR");
+      expect(internalXpr("user1")).to.equal("100.0000 XPR");
     });
 
     it("rejects tokens from contracts other than eosio.token", async () => {

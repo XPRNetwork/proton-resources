@@ -133,11 +133,11 @@ const actor = computed(() => userStore.actor)
 const indexOfUserSubscription = computed(() => {
   if (!userSubscription.value) return -1
   const uSubscription = userSubscription.value
+  // The stored price includes plan quantity and carried-over value, so it can't identify the plan
   return plans.value.findIndex(
     (plan) =>
       plan.cpu_credits.original === uSubscription.cpu_credits &&
       plan.net_credits.original === uSubscription.net_credits &&
-      plan.price.quantity.original === uSubscription.price.quantity &&
       plan.price.contract === uSubscription.price.contract,
   )
 })

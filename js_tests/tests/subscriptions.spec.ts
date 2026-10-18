@@ -134,11 +134,28 @@ describe("subscriptions", () => {
       expect(subscription("user1")).to.equal(undefined);
     });
 
-    it("is not triggered by deposits", async () => {
+    it("is triggered by deposits", async () => {
       advanceHours(721);
+      await deposit("user2", "1.0000 XPR");
+      expect(subscription("user1")).to.equal(undefined);
+      expect(delegated("user1")).to.equal(undefined);
+      expect(subscription("user2")).to.not.equal(undefined);
+    });
+
+    it("leaves active subscriptions alone on deposit", async () => {
+      advanceHours(719);
       await deposit("user2", "1.0000 XPR");
       expect(subscription("user1")).to.not.equal(undefined);
       expect(delegated("user1")).to.not.equal(undefined);
+    });
+
+    it("a stuck subscription removed with endsub unblocks deposit-driven cleanup", async () => {
+      advanceHours(1441);
+      await atom.actions.endsub(["user1", true]).send("resources@active");
+      await deposit("user1", "1.0000 XPR");
+      expect(subscription("user1")).to.equal(undefined);
+      expect(subscription("user2")).to.equal(undefined);
+      expect(delegated("user2")).to.equal(undefined);
     });
   });
 });
