@@ -1,0 +1,157 @@
+name: Contract build
+
+on:
+  pull_request:
+    paths: &contract_paths
+      - "resources/**"
+      - "faucet/**"
+      - "js_tests/**"
+      - "CMakeLists.txt"
+      - ".github/workflows/ci.yml"
+      - ".github/scripts/**"
+  push:
+    branches:
+      - master
+    paths: *contract_paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      # The root CMakeLists.txt accepts eosio.cdt 1.7.x only.
+      - name: Download EOSIO.CDT
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 \
+            https://github.com/EOSIO/eosio.cdt/releases/download/v1.7.0/eosio.cdt_1.7.0-1-ubuntu-18.04_amd64.deb \
+            --output "$RUNNER_TEMP/eosio.cdt.deb"
+          echo "f3784dacbc4e0b7ffd144edaa8bc10bb02c86e5b912c015bd505a0b55305db90  $RUNNER_TEMP/eosio.cdt.deb" | sha256sum --check --strict
+
+      # eosio.cdt 1.7.0 targets Ubuntu 18.04, so build inside an 18.04 container.
+      # Out-of-source so committed atom.abi / atom.wasm are untouched.
+      # SYS_PTRACE lets the build script strace a stalled linker.
+      - name: Build contracts
+        timeout-minutes: 20
+        run: |
+          set -euo pipefail
+          docker run --rm --platform linux/amd64 \
+            --cap-add SYS_PTRACE --security-opt seccomp=unconfined \
+            --volume "$RUNNER_TEMP/eosio.cdt.deb:/tmp/eosio.cdt.deb:ro" \
+            --volume "$GITHUB_WORKSPACE:/project" \
+            --workdir /project \
+            ubuntu:18.04 bash .github/scripts/build-contracts.sh
+          test -s build/resources/atom.abi
+          test -s build/resources/atom.wasm
+          test -s build/faucet/atom.abi
+          test -s build/faucet/atom.wasm
+
+      - name: Check committed ABIs are up to date
+        run: |
+          diff -u resources/atom.abi build/resources/atom.abi
+          diff -u faucet/atom.abi build/faucet/atom.abi
+
+      # eosio.cdt 1.7 wasm output differs between machines, so wasm is compared by hash only, not enforced.
+
+      - name: Print wasm SHA-256
+        run: |
+          sha256sum build/resources/atom.wasm resources/atom.wasm build/faucet/atom.wasm faucet/atom.wasm | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v7
+        with:
+          name: contract-build
+          path: |
+            build/resources/atom.abi
+            build/resources/atom.wasm
+            build/faucet/atom.abi
+            build/faucet/atom.wasm
+          if-no-files-found: error
+          retention-days: 7
+
+  test:
+    name: VeRT tests
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: js_tests
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download build output
+        uses: actions/download-artifact@v7
+        with:
+          name: contract-build
+          path: build
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: js_tests/package-lock.json
+
+      - name: Install test dependencies
+        run: npm ci
+
+      # Test the wasm built above, not the committed one.
+      - name: Run tests
+        env:
+          RESOURCES_CONTRACT: ../build/resources/atom
+        run: npm test
+
+  release:
+    name: Publish release artifact
+    needs: [build, test]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Republishes the exact wasm built above rather than rebuilding.
+      - name: Download build output
+        uses: actions/download-artifact@v7
+        with:
+          name: contract-build
+          path: build
+
+      - name: Print resources atom.wasm SHA-256
+        run: openssl dgst -sha256 build/resources/atom.wasm
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: proton-resources-contract-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            build/resources/atom.abi
+            build/resources/atom.wasm
+          if-no-files-found: error

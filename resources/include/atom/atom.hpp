@@ -8,6 +8,7 @@
 #include <eosio/asset.hpp>
 #include <eosio/crypto.hpp>
 #include <eosio/transaction.hpp>
+#include <eosio/singleton.hpp>
 
 
 // Local
@@ -28,7 +29,8 @@ namespace proton {
       : contract(receiver, code, ds),
         _accounts(receiver, receiver.value),
         _plans(receiver, receiver.value),
-        _subscriptions(receiver, receiver.value) {}
+        _subscriptions(receiver, receiver.value),
+        _config(receiver, receiver.value) {}
 
     ACTION addplan    ( const Plan& plan                     );
     ACTION updateplan ( const Plan& plan                     );
@@ -45,33 +47,36 @@ namespace proton {
     ACTION withdraw   ( const name& account,
                         const extended_asset& balance );
     ACTION process    ( const uint64_t& max                 );
+    ACTION endsub     ( const name& account,
+                        const bool& skip_undelegate         );
+    ACTION setpaused  ( const bool& paused                  );
 
     ACTION newaccount ( const name&      creator,
                         const name&      name,
                         const authority& owner,
                         const authority& active);
 
-    ACTION cleanup () {
-      require_auth(get_self());
+    // ACTION cleanup () {
+    //   require_auth(get_self());
       
-      account_table db(get_self(), get_self().value);
-      auto itr = db.end();
-      while(db.begin() != itr){
-        itr = db.erase(--itr);
-      }
+    //   account_table db(get_self(), get_self().value);
+    //   auto itr = db.end();
+    //   while(db.begin() != itr){
+    //     itr = db.erase(--itr);
+    //   }
 
-      subscription_table db3(get_self(), get_self().value);
-      auto itr3 = db3.end();
-      while(db3.begin() != itr3){
-        itr3 = db3.erase(--itr3);
-      }
+    //   subscription_table db3(get_self(), get_self().value);
+    //   auto itr3 = db3.end();
+    //   while(db3.begin() != itr3){
+    //     itr3 = db3.erase(--itr3);
+    //   }
 
-      plan_table db2(get_self(), get_self().value);
-      auto itr2 = db2.end();
-      while(db2.begin() != itr2){
-        itr2 = db2.erase(--itr2);
-      }
-    }
+    //   plan_table db2(get_self(), get_self().value);
+    //   auto itr2 = db2.end();
+    //   while(db2.begin() != itr2){
+    //     itr2 = db2.erase(--itr2);
+    //   }
+    // }
 
     // This function will be called when the contract is notified of incoming or outgoing transfer actions from any contract
     [[eosio::on_notify("*::transfer")]]
@@ -112,11 +117,14 @@ namespace proton {
     account_table _accounts;
     plan_table _plans;
     subscription_table _subscriptions;
+    config_singleton _config;
 
   private:
+    void check_not_paused ();
     void add_balance (const name& account, const extended_asset& delta);
     void substract_balance (const name& account, const extended_asset& delta);
     void end_subscription(const Subscription& subscription);
+    int64_t remaining_value(const Subscription& subscription, const extended_asset& price);
     void transfer_to(const name& to, const extended_asset& balance, const string& memo);
   };
 }

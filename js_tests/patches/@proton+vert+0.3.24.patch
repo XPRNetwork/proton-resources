@@ -1,0 +1,26 @@
+diff --git a/node_modules/@proton/vert/dist/proton/vm.js b/node_modules/@proton/vert/dist/proton/vm.js
+index 2340245..3a20a60 100644
+--- a/node_modules/@proton/vert/dist/proton/vm.js
++++ b/node_modules/@proton/vert/dist/proton/vm.js
+@@ -228,7 +228,7 @@ class VM extends vert_1.Vert {
+                         firstReceiver: this.context.isNotification ? this.context.firstReceiver : this.context.receiver,
+                         action: this.context.action,
+                         data: this.context.data,
+-                        authorization: [],
++                        authorization: [...this.context.authorization],
+                         decodedData: this.context.decodedData,
+                         actionOrdinal: this.context.actionOrdinal
+                     });
+diff --git a/node_modules/@proton/vert/src/proton/vm.ts b/node_modules/@proton/vert/src/proton/vm.ts
+index 8c34738..e3b0225 100644
+--- a/node_modules/@proton/vert/src/proton/vm.ts
++++ b/node_modules/@proton/vert/src/proton/vm.ts
+@@ -248,7 +248,7 @@ class VM extends Vert {
+             firstReceiver: this.context.isNotification ? this.context.firstReceiver : this.context.receiver,
+             action: this.context.action,
+             data: this.context.data,
+-            authorization: [],
++            authorization: [...this.context.authorization],
+             decodedData: this.context.decodedData,
+             actionOrdinal: this.context.actionOrdinal
+           })
